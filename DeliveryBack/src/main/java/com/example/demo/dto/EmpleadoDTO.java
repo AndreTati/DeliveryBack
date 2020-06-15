@@ -4,7 +4,9 @@ public class EmpleadoDTO extends PersonaDTO{
 
 	private RolDTO rol;
 	
-	public EmpleadoDTO() {}
+	public EmpleadoDTO() {
+		super();
+	}
 
 	public RolDTO getRol() {
 		return rol;

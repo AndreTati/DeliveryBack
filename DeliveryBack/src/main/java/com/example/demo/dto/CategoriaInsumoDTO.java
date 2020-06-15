@@ -2,13 +2,13 @@ package com.example.demo.dto;
 
 import java.io.Serializable;
 
-public class CategoriaDTO implements Serializable{
+public class CategoriaInsumoDTO implements Serializable{
 
 	private int id;
 	private String nombre;
 	private String descripcion;
 	
-	public CategoriaDTO() {
+	public CategoriaInsumoDTO() {
 		
 	}
 	

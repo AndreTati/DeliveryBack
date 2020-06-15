@@ -1,26 +1,50 @@
-package com.example.demo.dto;
+package com.example.demo.entities;
 
-import java.io.Serializable;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
-public class ArticuloInsumoDTO implements Serializable{
+@Entity
+public class ArticuloInsumo {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id_articuloInsumo")
 	private int id;
+	@Column(name="nombre_articuloInsumo")
 	private String nombre;
+	@Column(name="descripcion_articuloInsumo")
 	private String descripcion;
+	@Column(name="precioCompra_articuloInsumo")
 	private double precioCompra;
+	@Column(name="stockActual_articuloInsumo")
 	private double stockActual;
+	@Column(name="stockMin_articuloInsumo")
 	private double stockMin;
+	@Column(name="stockMax_articuloInsumo")
 	private double stockMax;
+	@Column(name="esInsumo_articuloInsumo")
 	private boolean esInsumo;
+	@Column(name="precioVta_articuloInsumo")
 	private double precioVta;
 	
-	private CategoriaInsumoDTO categoria;
-	private UnidadDeMedidaDTO unidadDeMed;
-	private ImagenDTO img;
+	@OneToOne
+	@JoinColumn(name="fk_id_categoriaInsumo")
+	private CategoriaInsumo categoria;
+	@OneToOne
+	@JoinColumn(name="fk_id_unidadDeMedida")
+	private UnidadDeMedida unidadMed;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="fk_id_imagen")
+	private Imagen img;
 	
-	public ArticuloInsumoDTO() {}
+	public ArticuloInsumo() {}
 
-	
 	public int getId() {
 		return id;
 	}
@@ -93,27 +117,27 @@ public class ArticuloInsumoDTO implements Serializable{
 		this.precioVta = precioVta;
 	}
 
-	public CategoriaInsumoDTO getCategoria() {
+	public CategoriaInsumo getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(CategoriaInsumoDTO categoria) {
+	public void setCategoria(CategoriaInsumo categoria) {
 		this.categoria = categoria;
 	}
 
-	public UnidadDeMedidaDTO getUnidadDeMed() {
-		return unidadDeMed;
+	public UnidadDeMedida getUnidadMed() {
+		return unidadMed;
 	}
 
-	public void setUnidadDeMed(UnidadDeMedidaDTO unidadDeMed) {
-		this.unidadDeMed = unidadDeMed;
+	public void setUnidadMed(UnidadDeMedida unidadMed) {
+		this.unidadMed = unidadMed;
 	}
 
-	public ImagenDTO getImg() {
+	public Imagen getImg() {
 		return img;
 	}
 
-	public void setImg(ImagenDTO img) {
+	public void setImg(Imagen img) {
 		this.img = img;
 	}
 	

@@ -1,22 +1,40 @@
-package com.example.demo.dto;
+package com.example.demo.entities;
 
-import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
-public class DomicilioDTO implements Serializable{
+@Entity
+public class Domicilio {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id_domicilio")
 	private int id;
+	@Column(name="calle_domicilio")
 	private String calle;
+	@Column(name="nro_domicilio")
 	private int nro;
+	@Column(name="piso_domicilio")
 	private int piso;
+	@Column(name="dpto_domicilio")
 	private int dpto;
+	@Column(name="cp_domicilio")
 	private int CP;
+	@Column(name="latitud_domicilio")
 	private double latitud;
+	@Column(name="longitud_domicilio")
 	private double longitud;
 	
-	private LocalidadDTO localidad;
-	private PersonaDTO persona;
+	@OneToOne
+	@JoinColumn(name="fk_id_localidad")
+	private Localidad localidad;
 	
-	public DomicilioDTO() {}
+	public Domicilio() {}
 
 	public int getId() {
 		return id;
@@ -74,14 +92,6 @@ public class DomicilioDTO implements Serializable{
 		this.latitud = latitud;
 	}
 
-	public LocalidadDTO getLocalidad() {
-		return localidad;
-	}
-
-	public void setLocalidad(LocalidadDTO localidad) {
-		this.localidad = localidad;
-	}
-
 	public double getLongitud() {
 		return longitud;
 	}
@@ -90,12 +100,12 @@ public class DomicilioDTO implements Serializable{
 		this.longitud = longitud;
 	}
 
-	public PersonaDTO getPersona() {
-		return persona;
+	public Localidad getLocalidad() {
+		return localidad;
 	}
 
-	public void setPersona(PersonaDTO persona) {
-		this.persona = persona;
+	public void setLocalidad(Localidad localidad) {
+		this.localidad = localidad;
 	}
 	
 	
