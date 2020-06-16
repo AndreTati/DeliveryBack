@@ -13,7 +13,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.Where;
+
 @Entity
+@Where( clause = "eliminado = false")  
 public class ArticuloManufacturado {
 
 	@Id
@@ -26,6 +29,8 @@ public class ArticuloManufacturado {
 	private int tiempoPreparacion;
 	@Column(name="precio_articuloManufacturado")
 	private double precio;
+	@Column(name="eliminado_articuloManufacturado")
+	private boolean eliminado;
 	
 	@OneToOne
 	@JoinColumn(name="fk_id_categoriaGeneral")
@@ -33,7 +38,7 @@ public class ArticuloManufacturado {
 	@OneToOne
 	@JoinColumn(name="fk_id_imagen")
 	private Imagen img;
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "manufacturado")
 	private List<ArticuloManufacturadoDetalle>detalles=new ArrayList<ArticuloManufacturadoDetalle>();
 	
 	public ArticuloManufacturado() {}
@@ -92,6 +97,14 @@ public class ArticuloManufacturado {
 
 	public void setDetalles(List<ArticuloManufacturadoDetalle> detalles) {
 		this.detalles = detalles;
+	}
+
+	public boolean isEliminado() {
+		return eliminado;
+	}
+
+	public void setEliminado(boolean eliminado) {
+		this.eliminado = eliminado;
 	}
 	
 	

@@ -14,7 +14,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.Where;
+
 @Entity
+@Where( clause = "eliminado = false")  
 public class Pedido {
 
 	@Id
@@ -29,11 +32,13 @@ public class Pedido {
 	private String horaEstimadaFin;
 	@Column(name="tipoEnvio_pedido")
 	private String tipoEnvio;
+	@Column(name="eliminado_pedido")
+	private boolean eliminado;
 	
 	@OneToOne
 	@JoinColumn(name="fk_id_estado")
 	private Estado estado;
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido")
 	private List<PedidoDetalle>detalles=new ArrayList<>();
 	@OneToOne
 	@JoinColumn(name="fk_id_cliente")
@@ -103,6 +108,14 @@ public class Pedido {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public boolean isEliminado() {
+		return eliminado;
+	}
+
+	public void setEliminado(boolean eliminado) {
+		this.eliminado = eliminado;
 	}
 	
 	

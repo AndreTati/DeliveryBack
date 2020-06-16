@@ -33,6 +33,9 @@ public class Domicilio {
 	@OneToOne
 	@JoinColumn(name="fk_id_localidad")
 	private Localidad localidad;
+	@OneToOne
+	@JoinColumn(name="fk_id_persona")
+	private Persona persona;
 	
 	public Domicilio() {}
 
@@ -106,6 +109,14 @@ public class Domicilio {
 
 	public void setLocalidad(Localidad localidad) {
 		this.localidad = localidad;
+	}
+
+	public Persona getPersona() {
+		return persona;
+	}
+
+	public void setPersona(Persona persona) {
+		this.persona = persona;
 	}
 	
 	

@@ -6,7 +6,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.Where;
+
 @Entity
+@Where( clause = "eliminado = false")  
 public class UnidadDeMedida {
 
 	@Id
@@ -17,6 +20,8 @@ public class UnidadDeMedida {
 	private String nombre;
 	@Column(name="abreviatura_unidadDeMedida")
 	private String abreviatura;
+	@Column(name="eliminado_unidadDeMedida")
+	private boolean eliminado;
 	
 	public UnidadDeMedida() {}
 
@@ -42,6 +47,14 @@ public class UnidadDeMedida {
 
 	public void setAbreviatura(String abreviatura) {
 		this.abreviatura = abreviatura;
+	}
+
+	public boolean isEliminado() {
+		return eliminado;
+	}
+
+	public void setEliminado(boolean eliminado) {
+		this.eliminado = eliminado;
 	}
 	
 	

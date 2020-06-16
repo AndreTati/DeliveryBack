@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
-import com.example.demo.dto.PaisDTO;
 
 @Entity
 public class Provincia {
@@ -22,7 +21,7 @@ public class Provincia {
 	
 	@OneToOne
 	@JoinColumn(name="fk_id_pais")
-	private PaisDTO pais;
+	private Pais pais;
 	
 	public Provincia() {}
 
@@ -42,11 +41,11 @@ public class Provincia {
 		this.nombre = nombre;
 	}
 
-	public PaisDTO getPais() {
+	public Pais getPais() {
 		return pais;
 	}
 
-	public void setPais(PaisDTO pais) {
+	public void setPais(Pais pais) {
 		this.pais = pais;
 	}
 	

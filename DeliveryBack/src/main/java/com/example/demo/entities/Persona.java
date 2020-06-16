@@ -13,9 +13,12 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.Where;
+
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
-public class Persona {
+@Where( clause = "eliminado = false")  
+public abstract class Persona {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -37,6 +40,8 @@ public class Persona {
 	protected String telefono;
 	@Column(name="fechaNac_persona")
 	protected Date fechaNac;
+	@Column(name="eliminado_persona")
+	private boolean eliminado;
 	
 	@OneToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name="fk_id_imagen")

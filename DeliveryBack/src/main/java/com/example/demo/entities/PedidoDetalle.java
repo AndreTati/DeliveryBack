@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -26,6 +27,12 @@ public class PedidoDetalle {
 	@OneToOne
 	@JoinColumn(name="fk_id_manufacturado")
 	private ArticuloManufacturado manufacturado;
+	@ManyToOne
+	@JoinColumn(name="fk_id_pedido")
+	private Pedido pedido;
+	@ManyToOne
+	@JoinColumn(name="fk_id_factura")
+	private Factura factura;
 	
 	public PedidoDetalle() {}
 

@@ -10,10 +10,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.Where;
+
 @Entity
+@Where( clause = "eliminado = false")  
 public class Factura {
 
 	@Id
@@ -32,14 +36,16 @@ public class Factura {
 	private String tipoPago;
 	@Column(name="nroTarjeta_factura")
 	private long nroTarjeta;
+	@Column(name="eliminado_factura")
+	private boolean eliminado;
 	
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "factura")
 	private List<PedidoDetalle>detalles=new ArrayList<>();
 	@OneToOne
-	@Column(name="fk_id_cliente")
+	@JoinColumn(name="fk_id_cliente")
 	private Cliente cliente;
 	@OneToOne
-	@Column(name="fk_id_pedido")
+	@JoinColumn(name="fk_id_pedido")
 	private Pedido pedido;
 	
 	public Factura() {}
@@ -122,6 +128,14 @@ public class Factura {
 
 	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
+	}
+
+	public boolean isEliminado() {
+		return eliminado;
+	}
+
+	public void setEliminado(boolean eliminado) {
+		this.eliminado = eliminado;
 	}
 	
 	

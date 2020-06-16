@@ -6,15 +6,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.Where;
+
 @Entity
+@Where( clause = "eliminado = false")  
 public class CategoriaGeneral {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id_categoriaGeneral")
 	private int id;
-	@Column(name="id_categoriaGeneral")
+	@Column(name="denominacion_categoriaGeneral")
 	private String denominacion;
+	@Column(name="eliminado_categoriaGeneral")
+	private boolean eliminado;
 	
 	public CategoriaGeneral() {}
 
@@ -32,6 +37,14 @@ public class CategoriaGeneral {
 
 	public void setDenominacion(String denominacion) {
 		this.denominacion = denominacion;
+	}
+
+	public boolean isEliminado() {
+		return eliminado;
+	}
+
+	public void setEliminado(boolean eliminado) {
+		this.eliminado = eliminado;
 	}
 	
 	

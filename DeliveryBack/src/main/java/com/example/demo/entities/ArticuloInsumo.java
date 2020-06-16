@@ -9,7 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.Where;
+
 @Entity
+@Where( clause = "eliminado = false")  
 public class ArticuloInsumo {
 
 	@Id
@@ -32,6 +35,8 @@ public class ArticuloInsumo {
 	private boolean esInsumo;
 	@Column(name="precioVta_articuloInsumo")
 	private double precioVta;
+	@Column(name="eliminado_articuloInsumo")
+	private boolean eliminado;
 	
 	@OneToOne
 	@JoinColumn(name="fk_id_categoriaInsumo")
@@ -139,6 +144,14 @@ public class ArticuloInsumo {
 
 	public void setImg(Imagen img) {
 		this.img = img;
+	}
+
+	public boolean isEliminado() {
+		return eliminado;
+	}
+
+	public void setEliminado(boolean eliminado) {
+		this.eliminado = eliminado;
 	}
 	
 	
