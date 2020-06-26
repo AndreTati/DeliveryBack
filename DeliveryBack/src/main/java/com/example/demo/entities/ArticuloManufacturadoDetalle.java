@@ -51,6 +51,14 @@ public class ArticuloManufacturadoDetalle {
 	public void setInsumo(ArticuloInsumo insumo) {
 		this.insumo = insumo;
 	}
+
+	public ArticuloManufacturado getManufacturado() {
+		return manufacturado;
+	}
+
+	public void setManufacturado(ArticuloManufacturado manufacturado) {
+		this.manufacturado = manufacturado;
+	}
 	
 	
 }

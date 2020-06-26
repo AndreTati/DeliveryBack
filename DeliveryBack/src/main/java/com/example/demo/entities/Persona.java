@@ -17,7 +17,7 @@ import org.hibernate.annotations.Where;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
-@Where( clause = "eliminado = false")  
+@Where( clause = "eliminado_persona = false")  
 public abstract class Persona {
 
 	@Id
@@ -41,11 +41,11 @@ public abstract class Persona {
 	@Column(name="fechaNac_persona")
 	protected Date fechaNac;
 	@Column(name="eliminado_persona")
-	private boolean eliminado;
+	protected boolean eliminado;
 	
 	@OneToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name="fk_id_imagen")
-	private Imagen img;
+	protected Imagen img;
 	
 	public Persona() {}
 

@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import org.hibernate.annotations.Where;
 
 @Entity
-@Where( clause = "eliminado = false")  
+@Where( clause = "eliminado_categoriaGeneral = false")  
 public class CategoriaGeneral {
 
 	@Id

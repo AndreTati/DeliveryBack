@@ -5,8 +5,8 @@ import java.io.Serializable;
 public class CategoriaInsumoDTO implements Serializable{
 
 	private int id;
-	private String nombre;
-	private String descripcion;
+	private String denominacion;
+	private boolean eliminado;
 	
 	public CategoriaInsumoDTO() {
 		
@@ -20,17 +20,20 @@ public class CategoriaInsumoDTO implements Serializable{
 		this.id = id;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String getDenominacion() {
+		return denominacion;
 	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+
+	public void setDenominacion(String denominacion) {
+		this.denominacion = denominacion;
 	}
-	public String getDescripcion() {
-		return descripcion;
+
+	public boolean isEliminado() {
+		return eliminado;
 	}
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+
+	public void setEliminado(boolean eliminado) {
+		this.eliminado = eliminado;
 	}
 	
 	

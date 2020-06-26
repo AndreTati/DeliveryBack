@@ -12,6 +12,7 @@ public class PedidoDTO implements Serializable{
 	private int nro;
 	private String horaEstimadaFin;
 	private String tipoEnvio;
+	private boolean eliminado;
 	
 	private EstadoDTO estado;
 	private List<PedidoDetalleDTO>detalles=new ArrayList<>();
@@ -83,5 +84,12 @@ public class PedidoDTO implements Serializable{
 		this.cliente = cliente;
 	}
 	
+	public boolean isEliminado() {
+		return eliminado;
+	}
+
+	public void setEliminado(boolean eliminado) {
+		this.eliminado = eliminado;
+	}
 	
 }

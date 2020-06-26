@@ -6,6 +6,7 @@ public class CategoriaGeneralDTO implements Serializable{
 
 	private int id;
 	private String denominacion;
+	private boolean eliminado;
 	
 	public CategoriaGeneralDTO() {}
 	
@@ -25,5 +26,11 @@ public class CategoriaGeneralDTO implements Serializable{
 		this.denominacion = denominacion;
 	}
 	
-	
+	public boolean isEliminado() {
+		return eliminado;
+	}
+
+	public void setEliminado(boolean eliminado) {
+		this.eliminado = eliminado;
+	}
 }

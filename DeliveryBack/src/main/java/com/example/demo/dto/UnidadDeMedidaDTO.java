@@ -7,6 +7,7 @@ public class UnidadDeMedidaDTO implements Serializable{
 	private int id;
 	private String nombre;
 	private String abreviatura;
+	private boolean eliminado;
 	
 	public UnidadDeMedidaDTO() {
 		
@@ -36,5 +37,11 @@ public class UnidadDeMedidaDTO implements Serializable{
 		this.abreviatura = abreviatura;
 	}
 	
-	
+	public boolean isEliminado() {
+		return eliminado;
+	}
+
+	public void setEliminado(boolean eliminado) {
+		this.eliminado = eliminado;
+	}
 }

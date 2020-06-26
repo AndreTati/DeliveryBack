@@ -13,6 +13,7 @@ public class ArticuloInsumoDTO implements Serializable{
 	private double stockMax;
 	private boolean esInsumo;
 	private double precioVta;
+	private boolean eliminado;
 	
 	private CategoriaInsumoDTO categoria;
 	private UnidadDeMedidaDTO unidadDeMed;
@@ -117,5 +118,11 @@ public class ArticuloInsumoDTO implements Serializable{
 		this.img = img;
 	}
 	
-	
+	public boolean isEliminado() {
+		return eliminado;
+	}
+
+	public void setEliminado(boolean eliminado) {
+		this.eliminado = eliminado;
+	}
 }

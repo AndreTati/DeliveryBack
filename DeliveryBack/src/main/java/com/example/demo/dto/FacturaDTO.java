@@ -14,6 +14,7 @@ public class FacturaDTO implements Serializable{
 	private int nro;
 	private String tipoPago;
 	private long nroTarjeta;
+	private boolean eliminado;
 	
 	private List<PedidoDetalleDTO> detalles=new ArrayList<>();
 	private ClienteDTO cliente;
@@ -101,5 +102,11 @@ public class FacturaDTO implements Serializable{
 		this.pedido = pedido;
 	}
 	
-	
+	public boolean isEliminado() {
+		return eliminado;
+	}
+
+	public void setEliminado(boolean eliminado) {
+		this.eliminado = eliminado;
+	}
 }

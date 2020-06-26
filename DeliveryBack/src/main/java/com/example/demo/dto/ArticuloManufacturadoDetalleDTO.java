@@ -8,6 +8,7 @@ public class ArticuloManufacturadoDetalleDTO implements Serializable{
 	private double cantidad;
 	
 	private ArticuloInsumoDTO insumo;
+	private ArticuloManufacturadoDTO manufacturado;
 	
 	public ArticuloManufacturadoDetalleDTO() {}
 
@@ -33,6 +34,14 @@ public class ArticuloManufacturadoDetalleDTO implements Serializable{
 
 	public void setInsumo(ArticuloInsumoDTO insumo) {
 		this.insumo = insumo;
+	}
+
+	public ArticuloManufacturadoDTO getManufacturado() {
+		return manufacturado;
+	}
+
+	public void setManufacturado(ArticuloManufacturadoDTO manufacturado) {
+		this.manufacturado = manufacturado;
 	}
 	
 	

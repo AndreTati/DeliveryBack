@@ -17,7 +17,7 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.Where;
 
 @Entity
-@Where( clause = "eliminado = false")  
+@Where( clause = "eliminado_factura = false")  
 public class Factura {
 
 	@Id

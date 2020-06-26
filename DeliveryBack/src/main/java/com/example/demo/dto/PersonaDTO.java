@@ -14,6 +14,7 @@ public class PersonaDTO implements Serializable{
 	protected Date fechaAlta;
 	protected String telefono;
 	protected Date fechaNac;
+	protected boolean eliminado;
 	
 	protected ImagenDTO img;
 	
@@ -99,5 +100,11 @@ public class PersonaDTO implements Serializable{
 		this.img = img;
 	}
 	
-	
+	public boolean isEliminado() {
+		return eliminado;
+	}
+
+	public void setEliminado(boolean eliminado) {
+		this.eliminado = eliminado;
+	}
 }

@@ -12,7 +12,7 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.Where;
 
 @Entity
-@Where( clause = "eliminado = false")  
+@Where( clause = "eliminado_articuloInsumo = false")  
 public class ArticuloInsumo {
 
 	@Id

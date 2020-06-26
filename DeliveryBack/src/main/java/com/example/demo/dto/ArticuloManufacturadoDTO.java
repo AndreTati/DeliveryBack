@@ -10,6 +10,7 @@ public class ArticuloManufacturadoDTO implements Serializable{
 	private String nombre;
 	private int tiempoPreparacion;
 	private double precio;
+	private boolean eliminado;
 	
 	private CategoriaGeneralDTO categoriaGral;
 	private ImagenDTO img;
@@ -72,5 +73,12 @@ public class ArticuloManufacturadoDTO implements Serializable{
 		this.detalles = detalles;
 	}
 	
+	public boolean isEliminado() {
+		return eliminado;
+	}
+
+	public void setEliminado(boolean eliminado) {
+		this.eliminado = eliminado;
+	}
 	
 }
