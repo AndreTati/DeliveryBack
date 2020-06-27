@@ -5,6 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,10 +21,9 @@ import com.example.demo.dto.CategoriaGeneralDTO;
 import com.example.demo.dto.ImagenDTO;
 import com.example.demo.services.ImagenService;
 
+@Controller
 @RestController
-@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE,
-		RequestMethod.PUT })
-@RequestMapping(path = "api/v1/delivery/imagen")
+@RequestMapping(path = "api/v1/imagen")
 public class ImagenController {
 	private ImagenService service;
 
@@ -32,22 +32,22 @@ public class ImagenController {
 	}
 	
 	@GetMapping("/")
-	@Transactional
+	@CrossOrigin("*")
 	public List<ImagenDTO> getAll() {
 		return ResponseEntity.status(200).body(service.getAll()).getBody();
 	}
 
 	@GetMapping("/{id}")
-	@Transactional
+	@CrossOrigin("*")
 	public ImagenDTO getOne(@PathVariable int id) {
 		return ResponseEntity.status(200).body(service.getOne(id)).getBody();
 	}
 
 	
 	@PostMapping(path="/") 
-	@Transactional
+	@CrossOrigin("*")
 	public ResponseEntity save(@RequestBody ImagenDTO imagenDTO) {
-		ImagenDTO temp = new ImagenDTO();
+		ImagenDTO temp = service.save(imagenDTO);
 		try {
 			if(temp.getId() != 0) {
 				return ResponseEntity.status(201).body(temp);
@@ -63,6 +63,7 @@ public class ImagenController {
 	
 	
 	@PutMapping(path = "/{id}") 
+	@CrossOrigin("*")
 	public ResponseEntity update(@RequestBody ImagenDTO imagenDTO, @PathVariable int id) {
 		ImagenDTO temp = service.update(imagenDTO, id);
 		try {
@@ -79,6 +80,7 @@ public class ImagenController {
 	}
 	
 	@DeleteMapping(path = "/{id}")
+	@CrossOrigin("*")
 	public ResponseEntity delete(@PathVariable int id) {
 		
 		boolean result = service.delete(id);

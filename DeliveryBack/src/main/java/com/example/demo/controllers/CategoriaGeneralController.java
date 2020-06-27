@@ -24,7 +24,7 @@ import com.example.demo.services.CategoriaGeneralService;
 
 @Controller
 @RestController
-@RequestMapping(path = "api/v1/categoriaGeneral")
+@RequestMapping(path = "api/v1/categoriageneral")
 public class CategoriaGeneralController {
 
 	private CategoriaGeneralService service;
@@ -49,7 +49,7 @@ public class CategoriaGeneralController {
 	@PostMapping(path="/") 
 	@CrossOrigin(origins = "*")
 	public ResponseEntity save(@RequestBody CategoriaGeneralDTO categoriaGeneralDTO) {
-		CategoriaGeneralDTO temp = new CategoriaGeneralDTO();
+		CategoriaGeneralDTO temp = service.save(categoriaGeneralDTO);
 		try {
 			if(temp.getId() != 0) {
 				return ResponseEntity.status(201).body(temp);
@@ -67,7 +67,7 @@ public class CategoriaGeneralController {
 	@PutMapping(path = "/{id}") 
 	@CrossOrigin(origins = "*")
 	public ResponseEntity update(@RequestBody CategoriaGeneralDTO categoriaGeneralDTO, @PathVariable int id) {
-		CategoriaGeneralDTO temp = new CategoriaGeneralDTO();
+		CategoriaGeneralDTO temp = service.update(categoriaGeneralDTO, id);
 		try {
 			
 			if(temp.getId() != 0) {

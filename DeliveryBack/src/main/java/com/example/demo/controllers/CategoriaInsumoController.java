@@ -60,7 +60,7 @@ public class CategoriaInsumoController {
 	
 	@PutMapping("/{id}")
 	@CrossOrigin(origins = "*")
-	public ResponseEntity update(CategoriaInsumoDTO categoriaDTO, int id) {
+	public ResponseEntity update(@RequestBody CategoriaInsumoDTO categoriaDTO,@PathVariable int id) {
 		
 		CategoriaInsumoDTO temp=categoriaService.update(categoriaDTO, id);
 		try {
@@ -76,7 +76,7 @@ public class CategoriaInsumoController {
 	
 	@DeleteMapping("/{id}")
 	@CrossOrigin(origins = "*")
-	public ResponseEntity delete(int id) {
+	public ResponseEntity delete(@PathVariable int id) {
 		boolean det=categoriaService.delete(id);
 		
 		try {

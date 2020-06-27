@@ -65,6 +65,7 @@ public class CategoriaInsumoService {
 		CategoriaInsumo cat=new CategoriaInsumo();
 		
 		try {
+			cat=opt.get();
 			cat.setDenominacion(categoriaDTO.getDenominacion());
 			
 			categoriaRepository.save(cat);

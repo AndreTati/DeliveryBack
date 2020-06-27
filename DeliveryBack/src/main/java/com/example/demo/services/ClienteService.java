@@ -57,7 +57,8 @@ public class ClienteService {
 		ClienteDTO cliDto=new ClienteDTO();
 		
 		try {
-			Cliente cli=new Cliente();
+			
+			Cliente cli=opt.get();
 			cliDto.setId(cli.getId());
 			cliDto.setDni(cli.getDni());
 			cliDto.setNombre(cli.getNombre());
@@ -141,7 +142,7 @@ public class ClienteService {
 		return clienteDto;
 	}
 	
-	/*public boolean delete(int id) {
+	public boolean delete(int id) {
 		try {
 			
 			clienteRepository.deleteById(id);	
@@ -152,5 +153,5 @@ public class ClienteService {
 			return false;
 			
 		}	
-	}*/
+	}
 }

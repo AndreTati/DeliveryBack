@@ -28,6 +28,7 @@ public class CategoriaGeneralService {
 			CategoriaGeneralDTO temp = new CategoriaGeneralDTO();
 			temp.setId(cg.getId());
 			temp.setDenominacion(cg.getDenominacion());
+			temp.setEliminado(cg.isEliminado());
 
 			lista.add(temp);
 		}
@@ -46,13 +47,13 @@ public class CategoriaGeneralService {
 			categoriaGeneralDTO.setDenominacion(cg.getDenominacion());
 			categoriaGeneralDTO.setEliminado(cg.isEliminado());
 
-			return categoriaGeneralDTO;
+			
 
 		} catch (Exception e) {
 
-			return categoriaGeneralDTO;
+			System.out.println("No existe el id");
 		}
-
+		return categoriaGeneralDTO;
 	}
 
 	public CategoriaGeneralDTO save(CategoriaGeneralDTO categoriaGeneralDTO) {

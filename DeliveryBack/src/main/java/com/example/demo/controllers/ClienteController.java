@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -56,8 +58,9 @@ public class ClienteController {
 			
 		}
 	}
-	
-	public ResponseEntity update(ClienteDTO clienteDto, int id) {
+	@PutMapping("/{id}")
+	@CrossOrigin("*")
+	public ResponseEntity update(@RequestBody ClienteDTO clienteDto,@PathVariable int id) {
 		ClienteDTO temp=clienteService.update(clienteDto, id);
 		try {
 			
@@ -74,8 +77,9 @@ public class ClienteController {
 			
 		}
 	}
-	
-	/*public ResponseEntity delete(int id) {
+	@DeleteMapping("/{id}")
+	@CrossOrigin("*")
+	public ResponseEntity delete(@PathVariable int id) {
 		boolean det = clienteService.delete(id);
 		
 		try {
@@ -92,5 +96,5 @@ public class ClienteController {
 			return e.getResponseStatus();
 			
 		}
-	}*/
+	}
 }

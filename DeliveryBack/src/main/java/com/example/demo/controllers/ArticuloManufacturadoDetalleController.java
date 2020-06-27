@@ -20,7 +20,7 @@ import com.example.demo.services.ArticuloManufacturadoDetalleService;
 
 @Controller
 @RestController
-@RequestMapping("api/v1/manufacturadoDetalle")
+@RequestMapping("api/v1/manufacturadodetalle")
 public class ArticuloManufacturadoDetalleController {
 	private ArticuloManufacturadoDetalleService detalleService;
 
