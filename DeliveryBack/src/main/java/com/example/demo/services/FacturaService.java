@@ -51,6 +51,12 @@ public class FacturaService {
 			try {
 				ClienteDTO cliente=new ClienteDTO();
 				cliente.setId(fac.getCliente().getId());
+				cliente.setNombre(fac.getCliente().getNombre());
+				cliente.setApellido(fac.getCliente().getApellido());
+				cliente.setDni(fac.getCliente().getDni());
+				cliente.setEmail(fac.getCliente().getEmail());
+				cliente.setFechaNac(fac.getCliente().getFechaNac());
+				cliente.setTelefono(fac.getCliente().getTelefono());
 				factDto.setCliente(cliente);
 			}catch(Exception e) {
 				System.out.println(e.getMessage());
@@ -70,6 +76,7 @@ public class FacturaService {
 			factDto.setNro(fac.getNro());
 			factDto.setFecha(fac.getFecha());
 			factDto.setMontoDescuento(fac.getMontoDescuento());
+			factDto.setTotal(fac.getTotal());
 			factDto.setTipoPago(fac.getTipoPago());
 			factDto.setNroTarjeta(fac.getNroTarjeta());
 			factDto.setEliminado(fac.isEliminado());
@@ -90,6 +97,12 @@ public class FacturaService {
 			try {
 				ClienteDTO cliente=new ClienteDTO();
 				cliente.setId(fac.getCliente().getId());
+				cliente.setNombre(fac.getCliente().getNombre());
+				cliente.setApellido(fac.getCliente().getApellido());
+				cliente.setDni(fac.getCliente().getDni());
+				cliente.setEmail(fac.getCliente().getEmail());
+				cliente.setFechaNac(fac.getCliente().getFechaNac());
+				cliente.setTelefono(fac.getCliente().getTelefono());
 				factDto.setCliente(cliente);
 			}catch(Exception e) {
 				System.out.println(e.getMessage());
@@ -106,6 +119,7 @@ public class FacturaService {
 		factura.setTipoPago(facturaDto.getTipoPago());
 		factura.setFecha(facturaDto.getFecha());
 		factura.setMontoDescuento(facturaDto.getMontoDescuento());
+		factura.setTotal(facturaDto.getTotal());
 		factura.setNro(facturaDto.getNro());
 		factura.setNroTarjeta(facturaDto.getNroTarjeta());
 		
@@ -122,7 +136,7 @@ public class FacturaService {
 		}
 		try {
 			Cliente cli=new Cliente();
-			cli.setId(facturaDto.getId());
+			cli.setId(facturaDto.getCliente().getId());
 			factura.setCliente(cli);
 		
 		}catch(Exception e) {
@@ -159,7 +173,7 @@ public class FacturaService {
 			}
 			try {
 				Cliente cli=new Cliente();
-				cli.setId(facturaDto.getId());
+				cli.setId(facturaDto.getCliente().getId());
 				factura.setCliente(cli);
 			
 			}catch(Exception e) {

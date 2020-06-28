@@ -34,10 +34,14 @@ public class Pedido {
 	private String tipoEnvio;
 	@Column(name="eliminado_pedido")
 	private boolean eliminado;
+	@Column(name="montoDescuento_pedido")
+	private double montoDescuento;
+	@Column(name="total_pedido")
+	private double total;
+	@Column(name="estado_pedido")
+	private String estado;
 	
-	@OneToOne
-	@JoinColumn(name="fk_id_estado")
-	private Estado estado;
+	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido")
 	private List<PedidoDetalle>detalles=new ArrayList<>();
 	@OneToOne
@@ -86,11 +90,11 @@ public class Pedido {
 		this.tipoEnvio = tipoEnvio;
 	}
 
-	public Estado getEstado() {
+	public String getEstado() {
 		return estado;
 	}
 
-	public void setEstado(Estado estado) {
+	public void setEstado(String estado) {
 		this.estado = estado;
 	}
 
@@ -116,6 +120,22 @@ public class Pedido {
 
 	public void setEliminado(boolean eliminado) {
 		this.eliminado = eliminado;
+	}
+
+	public double getMontoDescuento() {
+		return montoDescuento;
+	}
+
+	public void setMontoDescuento(double montoDescuento) {
+		this.montoDescuento = montoDescuento;
+	}
+
+	public double getTotal() {
+		return total;
+	}
+
+	public void setTotal(double total) {
+		this.total = total;
 	}
 	
 	

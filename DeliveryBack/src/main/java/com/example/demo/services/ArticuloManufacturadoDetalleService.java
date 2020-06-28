@@ -7,7 +7,10 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.ArticuloInsumoDTO;
+import com.example.demo.dto.ArticuloManufacturadoDTO;
 import com.example.demo.dto.ArticuloManufacturadoDetalleDTO;
+import com.example.demo.dto.CategoriaInsumoDTO;
+import com.example.demo.dto.UnidadDeMedidaDTO;
 import com.example.demo.entities.ArticuloInsumo;
 import com.example.demo.entities.ArticuloManufacturado;
 import com.example.demo.entities.ArticuloManufacturadoDetalle;
@@ -41,7 +44,23 @@ public class ArticuloManufacturadoDetalleService {
 				insumo.setStockMin(det.getInsumo().getStockMin());
 				insumo.setStockMax(det.getInsumo().getStockMax());
 				insumo.setEliminado(det.getInsumo().isEliminado());
+				CategoriaInsumoDTO cat=new CategoriaInsumoDTO();
+				cat.setId(det.getInsumo().getCategoria().getId());
+				cat.setDenominacion(det.getInsumo().getCategoria().getDenominacion());
+				insumo.setCategoria(cat);
+				UnidadDeMedidaDTO uniMed=new UnidadDeMedidaDTO();
+				uniMed.setId(det.getInsumo().getUnidadMed().getId());
+				uniMed.setNombre(det.getInsumo().getUnidadMed().getNombre());
+				uniMed.setAbreviatura(det.getInsumo().getUnidadMed().getAbreviatura());
+				insumo.setUnidadDeMed(uniMed);
 				detalleDto.setInsumo(insumo);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+			try {
+				ArticuloManufacturadoDTO manufacturado=new ArticuloManufacturadoDTO();
+				manufacturado.setId(det.getManufacturado().getId());
+				detalleDto.setManufacturado(manufacturado);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
@@ -70,7 +89,23 @@ public class ArticuloManufacturadoDetalleService {
 				insumo.setStockMin(det.getInsumo().getStockMin());
 				insumo.setStockMax(det.getInsumo().getStockMax());
 				insumo.setEliminado(det.getInsumo().isEliminado());
+				CategoriaInsumoDTO cat=new CategoriaInsumoDTO();
+				cat.setId(det.getInsumo().getCategoria().getId());
+				cat.setDenominacion(det.getInsumo().getCategoria().getDenominacion());
+				insumo.setCategoria(cat);
+				UnidadDeMedidaDTO uniMed=new UnidadDeMedidaDTO();
+				uniMed.setId(det.getInsumo().getUnidadMed().getId());
+				uniMed.setNombre(det.getInsumo().getUnidadMed().getNombre());
+				uniMed.setAbreviatura(det.getInsumo().getUnidadMed().getAbreviatura());
+				insumo.setUnidadDeMed(uniMed);
 				detalleDto.setInsumo(insumo);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+			try {
+				ArticuloManufacturadoDTO manufacturado=new ArticuloManufacturadoDTO();
+				manufacturado.setId(det.getManufacturado().getId());
+				detalleDto.setManufacturado(manufacturado);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}

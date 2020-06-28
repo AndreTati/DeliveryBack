@@ -13,8 +13,10 @@ public class PedidoDTO implements Serializable{
 	private String horaEstimadaFin;
 	private String tipoEnvio;
 	private boolean eliminado;
+	private double montoDescuento;
+	private double total;
+	private String estado;
 	
-	private EstadoDTO estado;
 	private List<PedidoDetalleDTO>detalles=new ArrayList<>();
 	private ClienteDTO cliente;
 	
@@ -60,11 +62,11 @@ public class PedidoDTO implements Serializable{
 		this.tipoEnvio = tipoEnvio;
 	}
 
-	public EstadoDTO getEstado() {
+	public String getEstado() {
 		return estado;
 	}
 
-	public void setEstado(EstadoDTO estado) {
+	public void setEstado(String estado) {
 		this.estado = estado;
 	}
 
@@ -91,5 +93,23 @@ public class PedidoDTO implements Serializable{
 	public void setEliminado(boolean eliminado) {
 		this.eliminado = eliminado;
 	}
+
+	public double getMontoDescuento() {
+		return montoDescuento;
+	}
+
+	public void setMontoDescuento(double montoDescuento) {
+		this.montoDescuento = montoDescuento;
+	}
+
+	public double getTotal() {
+		return total;
+	}
+
+	public void setTotal(double total) {
+		this.total = total;
+	}
+	
+	
 	
 }
