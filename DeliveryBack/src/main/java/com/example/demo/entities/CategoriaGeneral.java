@@ -1,10 +1,15 @@
 package com.example.demo.entities;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Where;
 
@@ -20,6 +25,8 @@ public class CategoriaGeneral {
 	private String denominacion;
 	@Column(name="eliminado_categoriaGeneral")
 	private boolean eliminado;
+	
+	
 	
 	public CategoriaGeneral() {}
 
@@ -46,6 +53,9 @@ public class CategoriaGeneral {
 	public void setEliminado(boolean eliminado) {
 		this.eliminado = eliminado;
 	}
+
+	
+	
 	
 	
 }
