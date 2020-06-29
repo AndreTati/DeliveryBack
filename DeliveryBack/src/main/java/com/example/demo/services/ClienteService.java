@@ -185,6 +185,82 @@ public class ClienteService {
 		return cliDto;
 	}
 	
+	public ClienteDTO busquedaPorEmail(String email) {
+		Optional<Cliente> opt=clienteRepository.buscarPorEmail(email);
+		ClienteDTO cliDto=new ClienteDTO();
+		
+		try {
+			Cliente cli=opt.get();
+			cliDto.setId(cli.getId());
+			cliDto.setDni(cli.getDni());
+			cliDto.setNombre(cli.getNombre());
+			cliDto.setApellido(cli.getApellido());
+			cliDto.setFechaNac(cli.getFechaNac());
+			cliDto.setFechaAlta(cli.getFechaAlta());
+			cliDto.setEmail(cli.getEmail());
+			cliDto.setTelefono(cli.getTelefono());
+			cliDto.setPass(cli.getPass());
+			
+			try {
+				List<DomicilioDTO> domicilios=new ArrayList<DomicilioDTO>();
+				for(Domicilio dom:cli.getDomicilios()) {
+					DomicilioDTO domDto=new DomicilioDTO();
+					domDto.setId(dom.getId());
+					domDto.setCalle(dom.getCalle());
+					domDto.setNro(dom.getNro());
+					domDto.setPiso(dom.getPiso());
+					domDto.setDpto(dom.getDpto());
+					domDto.setCP(dom.getCP());
+					domDto.setLatitud(dom.getLatitud());
+					domDto.setLongitud(dom.getLongitud());
+					
+					try {
+						LocalidadDTO localidad=new LocalidadDTO();
+						localidad.setId(dom.getLocalidad().getId());
+						localidad.setNombre(dom.getLocalidad().getNombre());
+						
+						try {
+							ProvinciaDTO provincia=new ProvinciaDTO();
+							provincia.setId(dom.getLocalidad().getProvincia().getId());
+							provincia.setNombre(dom.getLocalidad().getProvincia().getNombre());
+							
+							try {
+								PaisDTO pais=new PaisDTO();
+								pais.setId(dom.getLocalidad().getProvincia().getPais().getId());
+								pais.setNombre(dom.getLocalidad().getProvincia().getPais().getNombre());
+								provincia.setPais(pais);
+							} catch (Exception e) {
+								System.out.println(e.getMessage());
+							}
+							localidad.setProvincia(provincia);
+						} catch (Exception e) {
+							System.out.println(e.getMessage());
+						}
+						domDto.setLocalidad(localidad);
+					} catch (Exception e) {
+						System.out.println(e.getMessage());
+					}
+					domicilios.add(domDto);
+				}
+				cliDto.setDomicilios(domicilios);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+			
+			try {
+				ImagenDTO img=new ImagenDTO();
+				img.setId(cli.getImg().getId());
+				img.setUrl(cli.getImg().getUrl());
+				cliDto.setImg(img);
+			}catch(Exception e){
+				System.out.println(e.getMessage());
+			}
+		} catch (Exception e) {
+			System.out.println("No existe el cliente");
+		}
+		return cliDto;
+	}
+	
 	public ClienteDTO save(ClienteDTO clienteDto) {
 		Cliente cli=new Cliente();
 		cli.setDni(clienteDto.getDni());
