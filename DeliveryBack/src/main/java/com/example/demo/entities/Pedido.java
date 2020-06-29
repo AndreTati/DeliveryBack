@@ -17,7 +17,7 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.Where;
 
 @Entity
-@Where( clause = "eliminado = false")  
+@Where( clause = "eliminado_pedido = false")  
 public class Pedido {
 
 	@Id
@@ -43,7 +43,7 @@ public class Pedido {
 	
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido")
-	private List<PedidoDetalle>detalles=new ArrayList<>();
+	private List<PedidoDetalle>detalles=new ArrayList<PedidoDetalle>();
 	@OneToOne
 	@JoinColumn(name="fk_id_cliente")
 	private Cliente cliente;

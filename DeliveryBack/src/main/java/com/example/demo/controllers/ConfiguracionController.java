@@ -1,7 +1,5 @@
 package com.example.demo.controllers;
 
-import java.util.List;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,99 +12,61 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.dto.PedidoDTO;
+import com.example.demo.dto.ConfiguracionDTO;
 import com.example.demo.exceptions.StatusException;
-import com.example.demo.services.PedidoService;
-
+import com.example.demo.services.ConfiguracionService;
 
 @Controller
 @RestController
-@RequestMapping(path="api/v1/pedido")
-public class PedidoController {
+@RequestMapping(path="api/v1/configuracion")
+public class ConfiguracionController {
 
-	private PedidoService pedidoService;
+	private ConfiguracionService configuracionService;
 
-	public PedidoController(PedidoService pedidoService) {
-		this.pedidoService = pedidoService;
+	public ConfiguracionController(ConfiguracionService configuracionService) {
+		this.configuracionService = configuracionService;
 	}
 	@GetMapping("/")
 	@CrossOrigin("*")
-	public List<PedidoDTO> getAll(){
-		return ResponseEntity.status(200).body(pedidoService.getAll()).getBody();
-	}
-	@GetMapping("/{id}")
-	@CrossOrigin("*")
-	public PedidoDTO getOne(@PathVariable int id) {
-		return ResponseEntity.status(200).body(pedidoService.getOne(id)).getBody();
+	public ConfiguracionDTO getOne() {
+		return ResponseEntity.status(200).body(configuracionService.getConfiguracion()).getBody();
 	}
 	@PostMapping("/")
 	@CrossOrigin("*")
-	public ResponseEntity save(@RequestBody PedidoDTO pedidoDto) {
-		PedidoDTO temp = pedidoService.save(pedidoDto);		
-		
+	public ResponseEntity save(@RequestBody ConfiguracionDTO dto) {
+		ConfiguracionDTO temp=configuracionService.save(dto);
 		try {
-			
-			if(temp.getId() != 0) {
+			if(temp.getId()!=0) {
 				return ResponseEntity.status(201).body(temp);
-			}
-			else {
+			}else {
 				throw new StatusException("Bad request. Please check the values", 400);
 			}
-			
 		} catch (StatusException e) {
-			
 			return e.getResponseStatus();
-			
 		}
-	}
-	@PutMapping("/{id}/{estado}")
-	@CrossOrigin("*")
-	public ResponseEntity updateEstado(@RequestBody PedidoDTO pedidoDto, @PathVariable int id, @PathVariable String estado) {
-		PedidoDTO temp = pedidoService.updateEstado(pedidoDto, id, estado);
-		
-		try {
-			
-			if(temp.getId() != 0) {
-				return ResponseEntity.status(201).body(temp);
-			}
-			else {
-				throw new StatusException("Bad request. Please check the values", 400);
-			}
-			
-		} catch (StatusException e) {
-			
-			return e.getResponseStatus();
-			
-		}	
 	}
 	@PutMapping("/{id}")
 	@CrossOrigin("*")
-	public ResponseEntity update(@RequestBody PedidoDTO pedidoDto, @PathVariable int id) {
-		PedidoDTO temp = pedidoService.update(pedidoDto, id);
-		
+	public ResponseEntity update(@RequestBody ConfiguracionDTO dto,@PathVariable int id) {
+		ConfiguracionDTO temp=configuracionService.update(dto, id);
 		try {
-			
-			if(temp.getId() != 0) {
+			if(temp.getId()!=0) {
 				return ResponseEntity.status(201).body(temp);
-			}
-			else {
+			}else {
 				throw new StatusException("Bad request. Please check the values", 400);
 			}
-			
 		} catch (StatusException e) {
-			
 			return e.getResponseStatus();
-			
 		}
 	}
 	@DeleteMapping("/{id}")
 	@CrossOrigin("*")
 	public ResponseEntity delete(@PathVariable int id) {
-		boolean det = pedidoService.delete(id);
+		boolean result=configuracionService.delete(id);
 		
 		try {
 			
-			if(det) {
+			if(result) {
 				return ResponseEntity.status(204).body("{ \"Succesful\": \"Correctly removed.\" }");
 			}
 			else {
@@ -119,4 +79,5 @@ public class PedidoController {
 			
 		}
 	}
+	
 }

@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -33,9 +35,12 @@ public class Domicilio {
 	@OneToOne
 	@JoinColumn(name="fk_id_localidad")
 	private Localidad localidad;
+	@ManyToOne
+	@JoinColumn(name="fk_id_cliente")
+	private Cliente cliente;
 	@OneToOne
-	@JoinColumn(name="fk_id_persona")
-	private Persona persona;
+	@JoinColumn(name="fk_id_empleado")
+	private Empleado empleado;
 	
 	public Domicilio() {}
 
@@ -111,13 +116,23 @@ public class Domicilio {
 		this.localidad = localidad;
 	}
 
-	public Persona getPersona() {
-		return persona;
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	public void setPersona(Persona persona) {
-		this.persona = persona;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
+
+	public Empleado getEmpleado() {
+		return empleado;
+	}
+
+	public void setEmpleado(Empleado empleado) {
+		this.empleado = empleado;
+	}
+
+	
 	
 	
 }

@@ -6,13 +6,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.demo.entities.Cliente;
+import com.example.demo.entities.Empleado;
 
 @Repository
-public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
+public interface EmpleadoRepository extends JpaRepository<Empleado, Integer>{
 
 	@Modifying
 	@Transactional
-	@Query(value="UPDATE Persona SET eliminado_persona=true WHERE id=?1", nativeQuery = true)
+	@Query(value="UPDATE Persona SET eliminado_persona=true WHERE id=?1",nativeQuery = true)
 	public int deleteById(int id);
 }

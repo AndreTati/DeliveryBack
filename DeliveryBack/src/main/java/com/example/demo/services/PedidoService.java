@@ -1,6 +1,10 @@
 package com.example.demo.services;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -150,7 +154,7 @@ public class PedidoService {
 		PedidoDTO pedDto=new PedidoDTO();
 		
 		try {
-			Pedido pedido=new Pedido();
+			Pedido pedido=opt.get();
 			pedDto.setId(pedido.getId());
 			pedDto.setEliminado(pedido.isEliminado());
 			pedDto.setFecha(pedido.getFecha());
@@ -264,7 +268,7 @@ public class PedidoService {
 		pedido.setNro(pedidoDto.getNro());
 		pedido.setTipoEnvio(pedidoDto.getTipoEnvio());
 		pedido.setEstado(pedidoDto.getEstado());
-		pedido.setTotal(pedido.getTotal());
+		pedido.setTotal(pedidoDto.getTotal());
 		
 		try {
 			Cliente cli=new Cliente();
@@ -274,8 +278,9 @@ public class PedidoService {
 			System.out.println(e.getMessage());
 		}
 		
-		List<PedidoDetalle> detalle=new ArrayList<PedidoDetalle>();
+		
 		try {
+			List<PedidoDetalle> detalle=new ArrayList<PedidoDetalle>();
 			for(PedidoDetalleDTO detalleDto: pedidoDto.getDetalles()) {
 				PedidoDetalle temp=new PedidoDetalle();
 				temp.setCantidad(detalleDto.getCantidad());
@@ -318,9 +323,11 @@ public class PedidoService {
 			pedido=opt.get();
 			
 			if(estado.equals("terminado")) {
+				pedido.setEstado(estado);
 				List<PedidoDetalle> detalle=new ArrayList<PedidoDetalle>();
 				for(PedidoDetalleDTO detalleDto: pedidoDto.getDetalles()) {
 					PedidoDetalle temp=new PedidoDetalle();
+					temp.setId(detalleDto.getId());
 					temp.setCantidad(detalleDto.getCantidad());
 					
 					try {
@@ -353,6 +360,20 @@ public class PedidoService {
 					detalle.add(temp);
 				}
 				pedido.setDetalles(detalle);
+			}else if(estado.equals("demorado")) {
+				pedido.setEstado(estado);
+				String sDate1=pedido.getHoraEstimadaFin();
+				Date d1=new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(sDate1);
+				
+				Calendar calendar=Calendar.getInstance();
+				calendar.setTime(d1);
+				calendar.add(Calendar.MINUTE, 10);
+				Date fechaSalida=calendar.getTime();
+				
+				Format f=new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+				String strD=f.format(fechaSalida);
+				
+				pedido.setHoraEstimadaFin(strD);
 			}
 			pedidoRepositoy.save(pedido);
 		} catch (Exception e) {
@@ -375,7 +396,7 @@ public class PedidoService {
 			pedido.setNro(pedidoDto.getNro());
 			pedido.setTipoEnvio(pedidoDto.getTipoEnvio());
 			pedido.setEstado(pedidoDto.getEstado());
-			pedido.setTotal(pedido.getTotal());
+			pedido.setTotal(pedidoDto.getTotal());
 			
 			try {
 				Cliente cli=new Cliente();
@@ -417,6 +438,8 @@ public class PedidoService {
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
+			
+			
 			pedidoRepositoy.save(pedido);
 			pedidoDto.setId(pedido.getId());
 		} catch (Exception e) {
