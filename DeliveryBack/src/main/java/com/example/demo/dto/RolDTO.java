@@ -6,6 +6,7 @@ public class RolDTO implements Serializable{
 
 	private int id;
 	private String nombre;
+	private boolean eliminado;
 	
 	public RolDTO() {}
 
@@ -23,6 +24,14 @@ public class RolDTO implements Serializable{
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public boolean isEliminado() {
+		return eliminado;
+	}
+
+	public void setEliminado(boolean eliminado) {
+		this.eliminado = eliminado;
 	}
 	
 	

@@ -8,7 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.Where;
+
 @Entity
+@Where( clause = "eliminado_localidad = false")
 public class Localidad {
 
 	@Id
@@ -17,6 +20,8 @@ public class Localidad {
 	private int id;
 	@Column(name="nombre_localidad")
 	private String nombre;
+	@Column(name="eliminado_localidad")
+	private boolean eliminado;
 	
 	@OneToOne
 	@JoinColumn(name="fk_id_provincia")
@@ -46,6 +51,14 @@ public class Localidad {
 
 	public void setProvincia(Provincia provincia) {
 		this.provincia = provincia;
+	}
+
+	public boolean isEliminado() {
+		return eliminado;
+	}
+
+	public void setEliminado(boolean eliminado) {
+		this.eliminado = eliminado;
 	}
 	
 	

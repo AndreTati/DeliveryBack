@@ -6,7 +6,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.Where;
+
 @Entity
+@Where( clause = "eliminado_pais= false")  
 public class Pais {
 
 	@Id
@@ -15,6 +18,8 @@ public class Pais {
 	private int id;
 	@Column(name="nombre_pais")
 	private String nombre;
+	@Column(name="eliminado_pais")
+	private boolean eliminado;
 	
 	public Pais() {}
 
@@ -32,6 +37,14 @@ public class Pais {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public boolean isEliminado() {
+		return eliminado;
+	}
+
+	public void setEliminado(boolean eliminado) {
+		this.eliminado = eliminado;
 	}
 	
 	

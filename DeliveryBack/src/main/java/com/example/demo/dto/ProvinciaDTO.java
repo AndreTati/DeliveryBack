@@ -6,6 +6,7 @@ public class ProvinciaDTO implements Serializable{
 
 	private int id;
 	private String nombre;
+	private boolean eliminado;
 	
 	private PaisDTO pais;
 	
@@ -33,6 +34,14 @@ public class ProvinciaDTO implements Serializable{
 
 	public void setPais(PaisDTO pais) {
 		this.pais = pais;
+	}
+
+	public boolean isEliminado() {
+		return eliminado;
+	}
+
+	public void setEliminado(boolean eliminado) {
+		this.eliminado = eliminado;
 	}
 	
 	
