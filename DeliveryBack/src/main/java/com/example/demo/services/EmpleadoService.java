@@ -155,6 +155,7 @@ public class EmpleadoService {
 			domicilio.setCalle(eDto.getDomicilio().getCalle());
 			domicilio.setNro(eDto.getDomicilio().getNro());
 			emp.setDomicilio(domicilio);
+			domicilio.setEmpleado(emp);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -202,6 +203,7 @@ public class EmpleadoService {
 				domicilio.setCalle(eDto.getDomicilio().getCalle());
 				domicilio.setNro(eDto.getDomicilio().getNro());
 				emp.setDomicilio(domicilio);
+				domicilio.setEmpleado(emp);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
