@@ -15,6 +15,9 @@ public class Empleado extends Persona{
 	@OneToOne(cascade = CascadeType.DETACH)
 	@JoinColumn(name="fk_id_rol")
 	private Rol rol;
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "empleado")
+	private Domicilio domicilio;
+	
 	
 	public Empleado() {
 		super();
@@ -27,6 +30,15 @@ public class Empleado extends Persona{
 	public void setRol(Rol rol) {
 		this.rol = rol;
 	}
+
+	public Domicilio getDomicilio() {
+		return domicilio;
+	}
+
+	public void setDomicilio(Domicilio domicilio) {
+		this.domicilio = domicilio;
+	}
+	
 	
 	
 }
