@@ -11,9 +11,9 @@ public class PersonaDTO implements Serializable{
 	protected String apellido;
 	protected String email;
 	protected String pass;
-	protected Date fechaAlta;
+	protected String fechaAlta;
 	protected String telefono;
-	protected Date fechaNac;
+	protected String fechaNac;
 	protected boolean eliminado;
 	
 	protected ImagenDTO img;
@@ -68,11 +68,11 @@ public class PersonaDTO implements Serializable{
 		this.pass = pass;
 	}
 
-	public Date getFechaAlta() {
+	public String getFechaAlta() {
 		return fechaAlta;
 	}
 
-	public void setFechaAlta(Date fechaAlta) {
+	public void setFechaAlta(String fechaAlta) {
 		this.fechaAlta = fechaAlta;
 	}
 
@@ -84,11 +84,11 @@ public class PersonaDTO implements Serializable{
 		this.telefono = telefono;
 	}
 
-	public Date getFechaNac() {
+	public String getFechaNac() {
 		return fechaNac;
 	}
 
-	public void setFechaNac(Date fechaNac) {
+	public void setFechaNac(String fechaNac) {
 		this.fechaNac = fechaNac;
 	}
 

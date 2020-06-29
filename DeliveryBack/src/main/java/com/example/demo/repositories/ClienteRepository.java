@@ -13,6 +13,6 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
 
 	@Modifying
 	@Transactional
-	@Query(value="UPDATE Persona SET eliminado_persona=true WHERE id=?1", nativeQuery = true)
+	@Query(value="UPDATE Persona SET eliminado_persona=true WHERE id_persona=?1", nativeQuery = true)
 	public int deleteById(int id);
 }

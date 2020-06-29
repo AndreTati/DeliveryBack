@@ -38,11 +38,11 @@ public abstract class Persona {
 	@Column(name="pass_persona")
 	protected String pass;
 	@Column(name="fechaAlta_persona")
-	protected Date fechaAlta;
+	protected String fechaAlta;
 	@Column(name="telefono_persona")
 	protected String telefono;
 	@Column(name="fechaNac_persona")
-	protected Date fechaNac;
+	protected String fechaNac;
 	@Column(name="eliminado_persona")
 	protected boolean eliminado;
 	
@@ -100,11 +100,11 @@ public abstract class Persona {
 		this.pass = pass;
 	}
 
-	public Date getFechaAlta() {
+	public String getFechaAlta() {
 		return fechaAlta;
 	}
 
-	public void setFechaAlta(Date fechaAlta) {
+	public void setFechaAlta(String fechaAlta) {
 		this.fechaAlta = fechaAlta;
 	}
 
@@ -116,11 +116,11 @@ public abstract class Persona {
 		this.telefono = telefono;
 	}
 
-	public Date getFechaNac() {
+	public String getFechaNac() {
 		return fechaNac;
 	}
 
-	public void setFechaNac(Date fechaNac) {
+	public void setFechaNac(String fechaNac) {
 		this.fechaNac = fechaNac;
 	}
 

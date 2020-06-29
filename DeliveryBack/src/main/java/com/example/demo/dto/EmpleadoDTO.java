@@ -5,7 +5,7 @@ import com.example.demo.entities.Domicilio;
 public class EmpleadoDTO extends PersonaDTO{
 
 	private RolDTO rol;
-	private Domicilio domicilio;
+	private DomicilioDTO domicilio;
 	
 	public EmpleadoDTO() {
 		super();
@@ -19,11 +19,11 @@ public class EmpleadoDTO extends PersonaDTO{
 		this.rol = rol;
 	}
 
-	public Domicilio getDomicilio() {
+	public DomicilioDTO getDomicilio() {
 		return domicilio;
 	}
 
-	public void setDomicilio(Domicilio domicilio) {
+	public void setDomicilio(DomicilioDTO domicilio) {
 		this.domicilio = domicilio;
 	}
 	
