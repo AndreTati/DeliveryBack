@@ -39,6 +39,11 @@ public class ClienteController {
 	public ClienteDTO getOne(@PathVariable int id) {
 		return ResponseEntity.status(200).body(clienteService.getOne(id)).getBody();
 	}
+	@GetMapping("busquedaPorEmail/{email}")
+	@CrossOrigin("*")
+	public ClienteDTO getBuscarPorEmail(@PathVariable String email) {
+		return ResponseEntity.status(200).body(clienteService.busquedaPorEmail(email)).getBody();
+	}
 	@PostMapping("/")
 	@CrossOrigin("*")
 	public ResponseEntity save(@RequestBody ClienteDTO clienteDto) {
