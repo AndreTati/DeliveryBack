@@ -10,12 +10,14 @@ import com.example.demo.dto.ArticuloInsumoDTO;
 import com.example.demo.dto.ArticuloManufacturadoDTO;
 import com.example.demo.dto.ArticuloManufacturadoDetalleDTO;
 import com.example.demo.dto.CategoriaGeneralDTO;
+import com.example.demo.dto.CategoriaInsumoDTO;
 import com.example.demo.dto.ImagenDTO;
 import com.example.demo.dto.UnidadDeMedidaDTO;
 import com.example.demo.entities.ArticuloInsumo;
 import com.example.demo.entities.ArticuloManufacturado;
 import com.example.demo.entities.ArticuloManufacturadoDetalle;
 import com.example.demo.entities.CategoriaGeneral;
+import com.example.demo.entities.CategoriaInsumo;
 import com.example.demo.entities.Imagen;
 import com.example.demo.repositories.ArticuloManufacturadoRepository;
 
@@ -63,7 +65,7 @@ public class ArticuloManufacturadoService {
 					insumo.setEsInsumo(manufacturadoDetalle.getInsumo().isEsInsumo());
 					insumo.setEliminado(manufacturadoDetalle.getInsumo().isEsInsumo());
 					
-					CategoriaGeneral cat= new CategoriaGeneral();
+					CategoriaInsumoDTO cat= new CategoriaInsumoDTO();
 					cat.setId(manufacturadoDetalle.getInsumo().getCategoria().getId());
 					cat.setDenominacion(manufacturadoDetalle.getInsumo().getCategoria().getDenominacion());
 					cat.setEliminado(manufacturadoDetalle.getInsumo().getCategoria().isEliminado());
@@ -74,6 +76,7 @@ public class ArticuloManufacturadoService {
 					unidadMedida.setAbreviatura(manufacturadoDetalle.getInsumo().getUnidadMed().getAbreviatura());
 					unidadMedida.setEliminado(manufacturadoDetalle.getInsumo().getUnidadMed().isEliminado());
 					
+					insumo.setCategoria(cat);
 					insumo.setUnidadDeMed(unidadMedida);
 					manufacturadoDetalleDto.setInsumo(insumo);;
 					detalles.add(manufacturadoDetalleDto);
@@ -200,6 +203,7 @@ public class ArticuloManufacturadoService {
 				
 				ArticuloInsumo insumo=new ArticuloInsumo();
 				insumo.setId(detalleDto.getInsumo().getId());
+				dt.setInsumo(insumo);
 				detalles.add(dt);
 			}
 			manufacturado.setDetalles(detalles);
