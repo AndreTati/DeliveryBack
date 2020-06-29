@@ -174,4 +174,59 @@ public class ArticuloManufacturadoDetalleService {
 			
 		}
 	}
+	public List<ArticuloManufacturadoDetalleDTO> getAllFromId(int id) {
+		List<ArticuloManufacturadoDetalleDTO> lista = new ArrayList<>();
+		for (ArticuloManufacturadoDetalle cg :  detalleRepository.getAllFromId(id)  ) {
+			
+			ArticuloManufacturadoDetalleDTO temp = new ArticuloManufacturadoDetalleDTO();
+			
+			temp.setId(cg.getId());
+			temp.setCantidad(cg.getCantidad());
+
+			try {
+				ArticuloInsumoDTO aiDto = new ArticuloInsumoDTO();
+				aiDto.setId(cg.getInsumo().getId());
+				aiDto.setNombre(cg.getInsumo().getNombre());
+				aiDto.setDescripcion(cg.getInsumo().getDescripcion());
+				aiDto.setPrecioCompra(cg.getInsumo().getPrecioCompra());
+				aiDto.setStockActual(cg.getInsumo().getStockActual());
+				aiDto.setStockMax(cg.getInsumo().getStockMax());
+				aiDto.setStockMin(cg.getInsumo().getStockMin());
+				aiDto.setPrecioVta(cg.getInsumo().getPrecioVta());
+				aiDto.setEliminado(cg.getInsumo().isEliminado());
+				aiDto.setEsInsumo(cg.getInsumo().isEsInsumo());
+				
+				try {
+
+					CategoriaInsumoDTO categoria = new CategoriaInsumoDTO();
+					categoria.setId(aiDto.getCategoria().getId());
+					categoria.setDenominacion(aiDto.getCategoria().getDenominacion());
+					categoria.setEliminado(aiDto.getCategoria().isEliminado());
+
+					aiDto.setCategoria(categoria);
+
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+				}
+
+				try {
+					UnidadDeMedidaDTO unidadMedida = new UnidadDeMedidaDTO();
+					unidadMedida.setId(aiDto.getUnidadDeMed().getId());
+					unidadMedida.setNombre(aiDto.getUnidadDeMed().getNombre());
+					unidadMedida.setAbreviatura(aiDto.getUnidadDeMed().getAbreviatura());
+					unidadMedida.setEliminado(aiDto.getUnidadDeMed().isEliminado());
+
+					aiDto.setUnidadDeMed(unidadMedida);
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+				}
+			
+			}catch(Exception e){ 
+				System.out.println(e.getMessage());
+			}
+			lista.add(temp);
+		}
+		return lista;
+		}
+	
 }

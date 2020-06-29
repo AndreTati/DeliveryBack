@@ -99,4 +99,9 @@ public class ArticuloManufacturadoDetalleController {
 			
 		}
 	}
+	@GetMapping("/mismoManufacturado/{id}")
+	@CrossOrigin(origins = "*")
+	public List<ArticuloManufacturadoDetalleDTO> getAllFromId(@PathVariable int id) {
+		return ResponseEntity.status(200).body(detalleService.getAllFromId(id)).getBody();
+	}
 }
