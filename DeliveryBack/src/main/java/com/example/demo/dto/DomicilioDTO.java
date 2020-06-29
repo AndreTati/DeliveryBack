@@ -17,7 +17,6 @@ public class DomicilioDTO implements Serializable{
 	private EmpleadoDTO empleado;
 	private ClienteDTO cliente;
 	
-	
 	public DomicilioDTO() {}
 
 	public int getId() {
@@ -107,8 +106,6 @@ public class DomicilioDTO implements Serializable{
 	public void setCliente(ClienteDTO cliente) {
 		this.cliente = cliente;
 	}
-
-
 
 	
 	

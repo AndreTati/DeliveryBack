@@ -14,40 +14,36 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.dto.ClienteDTO;
+import com.example.demo.dto.EmpleadoDTO;
 import com.example.demo.exceptions.StatusException;
-import com.example.demo.services.ClienteService;
+import com.example.demo.services.EmpleadoService;
 
 
 @Controller
 @RestController
-@RequestMapping(path="api/v1/cliente")
-public class ClienteController {
+@RequestMapping(path="api/v1/empleado")
+public class EmpleadoController {
 
-	private ClienteService clienteService;
+	private EmpleadoService empleadoService;
 
-	public ClienteController(ClienteService clienteService) {
-		this.clienteService = clienteService;
+	public EmpleadoController(EmpleadoService empleadoService) {
+		this.empleadoService = empleadoService;
 	}
 	@GetMapping("/")
 	@CrossOrigin("*")
-	public List<ClienteDTO> getAll(){
-		return ResponseEntity.status(200).body(clienteService.getAll()).getBody();
+	public List<EmpleadoDTO> getAll(){
+		return ResponseEntity.status(200).body(empleadoService.getAll()).getBody();
 	}
 	@GetMapping("/{id}")
 	@CrossOrigin("*")
-	public ClienteDTO getOne(@PathVariable int id) {
-		return ResponseEntity.status(200).body(clienteService.getOne(id)).getBody();
-	}
-	@GetMapping("busquedaPorEmail/{email}")
-	@CrossOrigin("*")
-	public ClienteDTO getBuscarPorEmail(@PathVariable String email) {
-		return ResponseEntity.status(200).body(clienteService.busquedaPorEmail(email)).getBody();
+	public EmpleadoDTO getOne(@PathVariable int id) {
+		return ResponseEntity.status(200).body(empleadoService.getOne(id)).getBody();
 	}
 	@PostMapping("/")
 	@CrossOrigin("*")
-	public ResponseEntity save(@RequestBody ClienteDTO clienteDto) {
-		ClienteDTO temp=clienteService.save(clienteDto);
+	public ResponseEntity save(@RequestBody EmpleadoDTO dto) {
+		EmpleadoDTO temp=empleadoService.save(dto);
+		
 		try {
 			
 			if(temp.getId() != 0) {
@@ -65,8 +61,8 @@ public class ClienteController {
 	}
 	@PutMapping("/{id}")
 	@CrossOrigin("*")
-	public ResponseEntity update(@RequestBody ClienteDTO clienteDto,@PathVariable int id) {
-		ClienteDTO temp=clienteService.update(clienteDto, id);
+	public ResponseEntity update(@RequestBody EmpleadoDTO dto,@PathVariable int id) {
+		EmpleadoDTO temp=empleadoService.update(dto, id);
 		try {
 			
 			if(temp.getId() != 0) {
@@ -85,8 +81,7 @@ public class ClienteController {
 	@DeleteMapping("/{id}")
 	@CrossOrigin("*")
 	public ResponseEntity delete(@PathVariable int id) {
-		boolean det = clienteService.delete(id);
-		
+		boolean det=empleadoService.delete(id);
 		try {
 			
 			if(det) {
@@ -101,5 +96,7 @@ public class ClienteController {
 			return e.getResponseStatus();
 			
 		}
+		
 	}
 }
+

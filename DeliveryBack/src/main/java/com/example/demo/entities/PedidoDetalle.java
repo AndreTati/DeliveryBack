@@ -75,6 +75,22 @@ public class PedidoDetalle {
 	public void setManufacturado(ArticuloManufacturado manufacturado) {
 		this.manufacturado = manufacturado;
 	}
+
+	public Pedido getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
+	}
+
+	public Factura getFactura() {
+		return factura;
+	}
+
+	public void setFactura(Factura factura) {
+		this.factura = factura;
+	}
 	
 	
 }

@@ -78,7 +78,8 @@ public class ArticuloManufacturadoService {
 					
 					insumo.setCategoria(cat);
 					insumo.setUnidadDeMed(unidadMedida);
-					manufacturadoDetalleDto.setInsumo(insumo);;
+					manufacturadoDetalleDto.setInsumo(insumo);
+					
 					detalles.add(manufacturadoDetalleDto);
 					
 				}
@@ -204,6 +205,7 @@ public class ArticuloManufacturadoService {
 				ArticuloInsumo insumo=new ArticuloInsumo();
 				insumo.setId(detalleDto.getInsumo().getId());
 				dt.setInsumo(insumo);
+				dt.setManufacturado(manufacturado);
 				detalles.add(dt);
 			}
 			manufacturado.setDetalles(detalles);

@@ -1,6 +1,7 @@
 package com.example.demo.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class CategoriaGeneralDTO implements Serializable{
 
@@ -33,4 +34,8 @@ public class CategoriaGeneralDTO implements Serializable{
 	public void setEliminado(boolean eliminado) {
 		this.eliminado = eliminado;
 	}
+
+	
+	
+	
 }

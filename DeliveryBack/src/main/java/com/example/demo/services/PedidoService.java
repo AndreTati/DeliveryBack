@@ -284,6 +284,7 @@ public class PedidoService {
 			for(PedidoDetalleDTO detalleDto: pedidoDto.getDetalles()) {
 				PedidoDetalle temp=new PedidoDetalle();
 				temp.setCantidad(detalleDto.getCantidad());
+				temp.setPedido(pedido);
 				
 				try {
 					if(detalleDto.getInsumo()!=null) {
@@ -411,7 +412,7 @@ public class PedidoService {
 				for(PedidoDetalleDTO detalleDto: pedidoDto.getDetalles()) {
 					PedidoDetalle temp=new PedidoDetalle();
 					temp.setCantidad(detalleDto.getCantidad());
-					
+					temp.setPedido(pedido);
 					try {
 						if(detalleDto.getInsumo()!=null) {
 							ArticuloInsumo insumo=new ArticuloInsumo();

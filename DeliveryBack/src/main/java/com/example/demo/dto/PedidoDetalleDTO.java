@@ -2,6 +2,9 @@ package com.example.demo.dto;
 
 import java.io.Serializable;
 
+import com.example.demo.entities.Factura;
+import com.example.demo.entities.Pedido;
+
 public class PedidoDetalleDTO implements Serializable{
 
 	private int id;
@@ -10,6 +13,9 @@ public class PedidoDetalleDTO implements Serializable{
 	
 	private ArticuloInsumoDTO insumo;
 	private ArticuloManufacturadoDTO manufacturado;
+	
+	private Pedido pedido;
+	private Factura factura;
 	
 	public PedidoDetalleDTO() {}
 
@@ -51,6 +57,22 @@ public class PedidoDetalleDTO implements Serializable{
 
 	public void setManufacturado(ArticuloManufacturadoDTO manufacturado) {
 		this.manufacturado = manufacturado;
+	}
+
+	public Pedido getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
+	}
+
+	public Factura getFactura() {
+		return factura;
+	}
+
+	public void setFactura(Factura factura) {
+		this.factura = factura;
 	}
 	
 	
