@@ -7,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -41,7 +40,7 @@ public class Domicilio {
 	@OneToOne
 	@JoinColumn(name="fk_id_empleado")
 	private Empleado empleado;
-	
+
 	public Domicilio() {}
 
 	public int getId() {

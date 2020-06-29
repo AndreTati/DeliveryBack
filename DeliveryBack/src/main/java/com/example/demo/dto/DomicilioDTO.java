@@ -14,7 +14,9 @@ public class DomicilioDTO implements Serializable{
 	private double longitud;
 	
 	private LocalidadDTO localidad;
-	private PersonaDTO persona;
+	private EmpleadoDTO empleado;
+	private ClienteDTO cliente;
+	
 	
 	public DomicilioDTO() {}
 
@@ -90,13 +92,25 @@ public class DomicilioDTO implements Serializable{
 		this.longitud = longitud;
 	}
 
-	public PersonaDTO getPersona() {
-		return persona;
+	public EmpleadoDTO getEmpleado() {
+		return empleado;
 	}
 
-	public void setPersona(PersonaDTO persona) {
-		this.persona = persona;
+	public void setEmpleado(EmpleadoDTO empleado) {
+		this.empleado = empleado;
 	}
+
+	public ClienteDTO getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(ClienteDTO cliente) {
+		this.cliente = cliente;
+	}
+
+
+
+	
 	
 	
 }
