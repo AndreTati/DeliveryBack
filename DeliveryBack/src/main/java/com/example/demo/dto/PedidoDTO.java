@@ -8,7 +8,7 @@ import java.util.List;
 public class PedidoDTO implements Serializable{
 
 	private int id;
-	private Date fecha;
+	private String fecha;
 	private int nro;
 	private String horaEstimadaFin;
 	private String tipoEnvio;
@@ -17,7 +17,7 @@ public class PedidoDTO implements Serializable{
 	private double total;
 	private String estado;
 	
-	private List<PedidoDetalleDTO>detalles=new ArrayList<>();
+	private List<PedidoDetalleDTO>detalles=new ArrayList<PedidoDetalleDTO>();
 	private ClienteDTO cliente;
 	private DomicilioDTO domicilioCliente;
 	
@@ -31,11 +31,11 @@ public class PedidoDTO implements Serializable{
 		this.id = id;
 	}
 
-	public Date getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 

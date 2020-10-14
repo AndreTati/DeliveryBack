@@ -25,7 +25,7 @@ public class Pedido {
 	@Column(name="id_pedido")
 	private int id;
 	@Column(name="fecha_pedido")
-	private Date fecha;
+	private String fecha;
 	@Column(name="nro_pedido")
 	private int nro;
 	@Column(name="horaEstimadaFin_pedido")
@@ -61,11 +61,11 @@ public class Pedido {
 		this.id = id;
 	}
 
-	public Date getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 

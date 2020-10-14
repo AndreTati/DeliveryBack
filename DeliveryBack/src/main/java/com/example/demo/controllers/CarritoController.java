@@ -39,6 +39,13 @@ public class CarritoController {
 	public CarritoDTO getOne(@PathVariable int id) {
 		return ResponseEntity.status(200).body(carritoService.getOne(id)).getBody();
 	}
+	
+	@GetMapping("/byCliente/{idCliente}")
+	@CrossOrigin("*")
+	public CarritoDTO getOneByCliente(@PathVariable int idCliente) {
+		return ResponseEntity.status(200).body(carritoService.getOneByCliente(idCliente)).getBody();
+	}
+	
 	@PostMapping("/")
 	@CrossOrigin("*")
 	public ResponseEntity save(@RequestBody CarritoDTO carritoDto) {

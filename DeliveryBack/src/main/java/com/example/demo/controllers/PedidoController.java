@@ -39,6 +39,19 @@ public class PedidoController {
 	public PedidoDTO getOne(@PathVariable int id) {
 		return ResponseEntity.status(200).body(pedidoService.getOne(id)).getBody();
 	}
+	
+	@GetMapping("/byClientePendientes/{idCliente}")
+	@CrossOrigin("*")
+	public List<PedidoDTO> getAllByClientePendientes(@PathVariable int idCliente) {
+		return ResponseEntity.status(200).body(pedidoService.getAllByClientePendientes(idCliente)).getBody();
+	}
+	
+	@GetMapping("/byClienteHistorial/{idCliente}")
+	@CrossOrigin("*")
+	public List<PedidoDTO> getAllByClienteHistorial(@PathVariable int idCliente) {
+		return ResponseEntity.status(200).body(pedidoService.getAllByClienteHistorial(idCliente)).getBody();
+	}
+	
 	@PostMapping("/")
 	@CrossOrigin("*")
 	public ResponseEntity save(@RequestBody PedidoDTO pedidoDto) {

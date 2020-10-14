@@ -33,13 +33,8 @@ import com.example.demo.repositories.CarritoRepository;
 @Service
 public class CarritoService {
 	private CarritoRepository carritoRepository;
-	private ArticuloInsumoRepository insumoRepository;
-	private ArticuloManufacturadoRepository manufacturadoRepository;
-	public CarritoService(CarritoRepository carritoRepository, ArticuloInsumoRepository insumoRepository,
-			ArticuloManufacturadoRepository manufacturadoRepository) {
+	public CarritoService(CarritoRepository carritoRepository) {
 		this.carritoRepository = carritoRepository;
-		this.insumoRepository = insumoRepository;
-		this.manufacturadoRepository = manufacturadoRepository;
 	}
 	
 	public List<CarritoDTO> getAll(){
@@ -266,11 +261,16 @@ public class CarritoService {
 						insumo.setStockActual(detalle.getInsumo().getStockActual());
 						insumo.setStockMax(detalle.getInsumo().getStockMax());
 						insumo.setStockMin(detalle.getInsumo().getStockMin());
-						UnidadDeMedidaDTO uniMed=new UnidadDeMedidaDTO();
-						uniMed.setId(detalle.getInsumo().getUnidadMed().getId());
-						uniMed.setNombre(detalle.getInsumo().getUnidadMed().getNombre());
-						uniMed.setAbreviatura(detalle.getInsumo().getUnidadMed().getAbreviatura());
-						insumo.setUnidadDeMed(uniMed);
+						try {
+							UnidadDeMedidaDTO uniMed=new UnidadDeMedidaDTO();
+							uniMed.setId(detalle.getInsumo().getUnidadMed().getId());
+							uniMed.setNombre(detalle.getInsumo().getUnidadMed().getNombre());
+							uniMed.setAbreviatura(detalle.getInsumo().getUnidadMed().getAbreviatura());
+							insumo.setUnidadDeMed(uniMed);
+						} catch (Exception e) {
+							// TODO: handle exception
+						}
+						
 						detalleDto.setInsumo(insumo);
 					}
 					
@@ -281,36 +281,222 @@ public class CarritoService {
 						manufacturado.setPrecio(detalle.getManufacturado().getPrecio());
 						manufacturado.setTiempoPreparacion(detalle.getManufacturado().getTiempoPreparacion());
 						
-						List<ArticuloManufacturadoDetalleDTO> detallesManuf=new ArrayList<ArticuloManufacturadoDetalleDTO>();
-						for(ArticuloManufacturadoDetalle det: detalle.getManufacturado().getDetalles()) {
-							ArticuloManufacturadoDetalleDTO temp=new ArticuloManufacturadoDetalleDTO();
-							temp.setId(det.getId());
-							temp.setCantidad(det.getCantidad());
-							ArticuloInsumoDTO insumoDetalle =new ArticuloInsumoDTO();
-							insumoDetalle.setId(det.getInsumo().getId());
-							insumoDetalle.setNombre(det.getInsumo().getNombre());
-							insumoDetalle.setDescripcion(det.getInsumo().getDescripcion());
-							insumoDetalle.setPrecioCompra(det.getInsumo().getPrecioCompra());
-							insumoDetalle.setPrecioVta(det.getInsumo().getPrecioVta());
-							insumoDetalle.setStockActual(det.getInsumo().getStockActual());
-							insumoDetalle.setStockMax(det.getInsumo().getStockMax());
-							insumoDetalle.setStockMin(det.getInsumo().getStockMin());
-							insumoDetalle.setEsInsumo(det.getInsumo().isEsInsumo());
-							CategoriaInsumoDTO categoria=new CategoriaInsumoDTO();
-							categoria.setId(det.getInsumo().getCategoria().getId());
-							categoria.setDenominacion(det.getInsumo().getCategoria().getDenominacion());
-							insumoDetalle.setCategoria(categoria);
-							UnidadDeMedidaDTO unidad=new UnidadDeMedidaDTO();
-							unidad.setId(det.getInsumo().getUnidadMed().getId());
-							unidad.setNombre(det.getInsumo().getUnidadMed().getNombre());
-							unidad.setAbreviatura(det.getInsumo().getUnidadMed().getAbreviatura());
-							insumoDetalle.setUnidadDeMed(unidad);
+						try {
+							List<ArticuloManufacturadoDetalleDTO> detallesManuf=new ArrayList<ArticuloManufacturadoDetalleDTO>();
+							for(ArticuloManufacturadoDetalle det: detalle.getManufacturado().getDetalles()) {
+								ArticuloManufacturadoDetalleDTO temp=new ArticuloManufacturadoDetalleDTO();
+								temp.setId(det.getId());
+								temp.setCantidad(det.getCantidad());
+								
+								try {
+									ArticuloInsumoDTO insumoDetalle =new ArticuloInsumoDTO();
+									insumoDetalle.setId(det.getInsumo().getId());
+									insumoDetalle.setNombre(det.getInsumo().getNombre());
+									insumoDetalle.setDescripcion(det.getInsumo().getDescripcion());
+									insumoDetalle.setPrecioCompra(det.getInsumo().getPrecioCompra());
+									insumoDetalle.setPrecioVta(det.getInsumo().getPrecioVta());
+									insumoDetalle.setStockActual(det.getInsumo().getStockActual());
+									insumoDetalle.setStockMax(det.getInsumo().getStockMax());
+									insumoDetalle.setStockMin(det.getInsumo().getStockMin());
+									insumoDetalle.setEsInsumo(det.getInsumo().isEsInsumo());
+									try {
+										CategoriaInsumoDTO categoria=new CategoriaInsumoDTO();
+										categoria.setId(det.getInsumo().getCategoria().getId());
+										categoria.setDenominacion(det.getInsumo().getCategoria().getDenominacion());
+										insumoDetalle.setCategoria(categoria);
+									} catch (Exception e) {
+										System.out.println(e.getMessage());
+									}
+									try {
+										UnidadDeMedidaDTO unidad=new UnidadDeMedidaDTO();
+										unidad.setId(det.getInsumo().getUnidadMed().getId());
+										unidad.setNombre(det.getInsumo().getUnidadMed().getNombre());
+										unidad.setAbreviatura(det.getInsumo().getUnidadMed().getAbreviatura());
+										insumoDetalle.setUnidadDeMed(unidad);
+									} catch (Exception e) {
+										System.out.println(e.getMessage());
+									}
+									
+									temp.setInsumo(insumoDetalle);
+								} catch (Exception e) {
+									System.out.println(e.getMessage());
+								}
+								
+								
+								detallesManuf.add(temp);
+							}
+							manufacturado.setDetalles(detallesManuf);
+						} catch (Exception e) {
 							
-							temp.setInsumo(insumoDetalle);
-							
-							detallesManuf.add(temp);
 						}
-						manufacturado.setDetalles(detallesManuf);
+						
+						detalleDto.setManufacturado(manufacturado);
+					}
+					detDto.add(detalleDto);
+				}
+				carDto.setDetallesCarrito(detDto);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+		} catch (Exception e) {
+			System.out.println("No existe el id");
+		}
+		return carDto;
+	}
+	
+	public CarritoDTO getOneByCliente(int idCliente) {
+		Optional<Carrito> opt=carritoRepository.getOneByCliente(idCliente);
+		
+		CarritoDTO carDto=new CarritoDTO();
+		
+		try {
+			Carrito carrito=opt.get();
+			carDto.setId(carrito.getId());
+			carDto.setFecha(carrito.getFecha());
+			carDto.setMontoDescuento(carrito.getMontoDescuento());
+			carDto.setTipoEnvio(carrito.getTipoEnvio());
+			carDto.setTotal(carrito.getTotal());
+			
+			try {
+				ClienteDTO cli=new ClienteDTO();
+				cli.setId(carrito.getCliente().getId());
+				cli.setNombre(carrito.getCliente().getNombre());
+				cli.setApellido(carrito.getCliente().getApellido());
+				cli.setDni(carrito.getCliente().getDni());
+				cli.setEmail(carrito.getCliente().getEmail());
+				carDto.setCliente(cli);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+			
+			try {
+				DomicilioDTO domCli=new DomicilioDTO();
+				domCli.setId(carrito.getDomicilioCliente().getId());
+				domCli.setCalle(carrito.getDomicilioCliente().getCalle());
+				domCli.setNro(carrito.getDomicilioCliente().getNro());
+				domCli.setDpto(carrito.getDomicilioCliente().getDpto());
+				domCli.setPiso(carrito.getDomicilioCliente().getPiso());
+				
+				try {
+					LocalidadDTO loc=new LocalidadDTO();
+					loc.setId(carrito.getDomicilioCliente().getLocalidad().getId());
+					loc.setNombre(carrito.getDomicilioCliente().getLocalidad().getNombre());
+					
+					try {
+						ProvinciaDTO prov=new ProvinciaDTO();
+						prov.setId(carrito.getDomicilioCliente().getLocalidad().getProvincia().getId());
+						prov.setNombre(carrito.getDomicilioCliente().getLocalidad().getProvincia().getNombre());
+						
+						try {
+							PaisDTO pais=new PaisDTO();
+							pais.setId(carrito.getDomicilioCliente().getLocalidad().getProvincia().getPais().getId());
+							pais.setNombre(carrito.getDomicilioCliente().getLocalidad().getProvincia().getPais().getNombre());
+							prov.setPais(pais);
+							
+						} catch (Exception e) {
+							System.out.println(e.getMessage());
+						}
+						loc.setProvincia(prov);
+						
+					} catch (Exception e) {
+						System.out.println(e.getMessage());
+					}
+					domCli.setLocalidad(loc);
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+				}
+				carDto.setDomicilioCliente(domCli);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+			
+			try {
+				List<CarritoDetalleDTO> detDto=new ArrayList<>();
+				for(CarritoDetalle detalle:carrito.getDetallesCarrito()) {
+					CarritoDetalleDTO detalleDto=new CarritoDetalleDTO();
+					detalleDto.setId(detalle.getId());
+					detalleDto.setCantidad(detalle.getCantidad());
+					detalleDto.setSubtotal(detalle.getSubtotal());
+					
+					if(detalle.getInsumo()!=null) {
+						ArticuloInsumoDTO insumo=new ArticuloInsumoDTO();
+						insumo.setId(detalle.getInsumo().getId());
+						insumo.setNombre(detalle.getInsumo().getNombre());
+						insumo.setDescripcion(detalle.getInsumo().getDescripcion());
+						insumo.setEsInsumo(detalle.getInsumo().isEsInsumo());
+						insumo.setPrecioCompra(detalle.getInsumo().getPrecioCompra());
+						insumo.setPrecioVta(detalle.getInsumo().getPrecioVta());
+						insumo.setStockActual(detalle.getInsumo().getStockActual());
+						insumo.setStockMax(detalle.getInsumo().getStockMax());
+						insumo.setStockMin(detalle.getInsumo().getStockMin());
+						try {
+							UnidadDeMedidaDTO uniMed=new UnidadDeMedidaDTO();
+							uniMed.setId(detalle.getInsumo().getUnidadMed().getId());
+							uniMed.setNombre(detalle.getInsumo().getUnidadMed().getNombre());
+							uniMed.setAbreviatura(detalle.getInsumo().getUnidadMed().getAbreviatura());
+							insumo.setUnidadDeMed(uniMed);
+						} catch (Exception e) {
+							// TODO: handle exception
+						}
+						
+						detalleDto.setInsumo(insumo);
+					}
+					
+					if(detalle.getManufacturado()!=null) {
+						ArticuloManufacturadoDTO manufacturado=new ArticuloManufacturadoDTO();
+						manufacturado.setId(detalle.getManufacturado().getId());
+						manufacturado.setNombre(detalle.getManufacturado().getNombre());
+						manufacturado.setPrecio(detalle.getManufacturado().getPrecio());
+						manufacturado.setTiempoPreparacion(detalle.getManufacturado().getTiempoPreparacion());
+						
+						try {
+							List<ArticuloManufacturadoDetalleDTO> detallesManuf=new ArrayList<ArticuloManufacturadoDetalleDTO>();
+							for(ArticuloManufacturadoDetalle det: detalle.getManufacturado().getDetalles()) {
+								ArticuloManufacturadoDetalleDTO temp=new ArticuloManufacturadoDetalleDTO();
+								temp.setId(det.getId());
+								temp.setCantidad(det.getCantidad());
+								
+								try {
+									ArticuloInsumoDTO insumoDetalle =new ArticuloInsumoDTO();
+									insumoDetalle.setId(det.getInsumo().getId());
+									insumoDetalle.setNombre(det.getInsumo().getNombre());
+									insumoDetalle.setDescripcion(det.getInsumo().getDescripcion());
+									insumoDetalle.setPrecioCompra(det.getInsumo().getPrecioCompra());
+									insumoDetalle.setPrecioVta(det.getInsumo().getPrecioVta());
+									insumoDetalle.setStockActual(det.getInsumo().getStockActual());
+									insumoDetalle.setStockMax(det.getInsumo().getStockMax());
+									insumoDetalle.setStockMin(det.getInsumo().getStockMin());
+									insumoDetalle.setEsInsumo(det.getInsumo().isEsInsumo());
+									try {
+										CategoriaInsumoDTO categoria=new CategoriaInsumoDTO();
+										categoria.setId(det.getInsumo().getCategoria().getId());
+										categoria.setDenominacion(det.getInsumo().getCategoria().getDenominacion());
+										insumoDetalle.setCategoria(categoria);
+									} catch (Exception e) {
+										System.out.println(e.getMessage());
+									}
+									try {
+										UnidadDeMedidaDTO unidad=new UnidadDeMedidaDTO();
+										unidad.setId(det.getInsumo().getUnidadMed().getId());
+										unidad.setNombre(det.getInsumo().getUnidadMed().getNombre());
+										unidad.setAbreviatura(det.getInsumo().getUnidadMed().getAbreviatura());
+										insumoDetalle.setUnidadDeMed(unidad);
+									} catch (Exception e) {
+										System.out.println(e.getMessage());
+									}
+									
+									temp.setInsumo(insumoDetalle);
+								} catch (Exception e) {
+									System.out.println(e.getMessage());
+								}
+								
+								
+								detallesManuf.add(temp);
+							}
+							manufacturado.setDetalles(detallesManuf);
+						} catch (Exception e) {
+							
+						}
 						
 						detalleDto.setManufacturado(manufacturado);
 					}
@@ -355,6 +541,7 @@ public class CarritoService {
 			for(CarritoDetalleDTO detalleDto:carritoDto.getDetallesCarrito()) {
 				CarritoDetalle temp=new CarritoDetalle();
 				temp.setCantidad(detalleDto.getCantidad());
+				temp.setSubtotal(detalleDto.getSubtotal());
 				temp.setCarrito(carrito);
 				
 				try {
@@ -409,7 +596,7 @@ public class CarritoService {
 			
 			try {
 				Domicilio dom=new Domicilio();
-				dom.setId(carrito.getDomicilioCliente().getId());
+				dom.setId(carritoDto.getDomicilioCliente().getId());
 				carrito.setDomicilioCliente(dom);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
@@ -419,7 +606,11 @@ public class CarritoService {
 				List<CarritoDetalle> detalle=new ArrayList<CarritoDetalle>();
 				for(CarritoDetalleDTO detalleDto:carritoDto.getDetallesCarrito()) {
 					CarritoDetalle temp=new CarritoDetalle();
+					if(detalleDto.getId()!=0) {
+						temp.setId(detalleDto.getId());
+					}
 					temp.setCantidad(detalleDto.getCantidad());
+					temp.setSubtotal(detalleDto.getSubtotal());
 					temp.setCarrito(carrito);
 					
 					try {
