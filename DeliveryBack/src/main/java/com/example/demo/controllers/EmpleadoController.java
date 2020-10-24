@@ -39,6 +39,12 @@ public class EmpleadoController {
 	public EmpleadoDTO getOne(@PathVariable int id) {
 		return ResponseEntity.status(200).body(empleadoService.getOne(id)).getBody();
 	}
+	@GetMapping("busquedaPorEmail/{email}")
+	@CrossOrigin("*")
+	public EmpleadoDTO getOneByEmail(@PathVariable String email) {
+		return ResponseEntity.status(200).body(empleadoService.getOneByEmail(email)).getBody();
+	}
+	
 	@PostMapping("/")
 	@CrossOrigin("*")
 	public ResponseEntity save(@RequestBody EmpleadoDTO dto) {

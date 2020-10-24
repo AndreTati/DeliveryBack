@@ -16,6 +16,7 @@ import com.example.demo.dto.ArticuloManufacturadoDetalleDTO;
 import com.example.demo.dto.CategoriaInsumoDTO;
 import com.example.demo.dto.ClienteDTO;
 import com.example.demo.dto.DomicilioDTO;
+import com.example.demo.dto.FacturaDTO;
 import com.example.demo.dto.LocalidadDTO;
 import com.example.demo.dto.PaisDTO;
 import com.example.demo.dto.PedidoDTO;
@@ -28,6 +29,7 @@ import com.example.demo.entities.ArticuloManufacturadoDetalle;
 import com.example.demo.entities.Cliente;
 import com.example.demo.entities.Domicilio;
 import com.example.demo.entities.Estado;
+import com.example.demo.entities.Factura;
 import com.example.demo.entities.Pedido;
 import com.example.demo.entities.PedidoDetalle;
 import com.example.demo.repositories.ArticuloInsumoRepository;
@@ -39,6 +41,7 @@ public class PedidoService {
 	private PedidoRepository pedidoRepositoy;
 	private ArticuloInsumoRepository insumoRepository;
 	private ArticuloManufacturadoRepository manufacturadoRepository;
+	private FacturaService facturaService;
 
 	
 
@@ -758,12 +761,37 @@ public class PedidoService {
 			
 			if(estado.equals("terminado")) {
 				pedido.setEstado(estado);
+				FacturaDTO fac=new FacturaDTO();
+				fac.setPedido(pedidoDto);
+				fac.setFecha(pedidoDto.getFecha());
+				fac.setMontoDescuento(pedidoDto.getMontoDescuento());
+				fac.setTotal(pedido.getTotal());
+				try {
+					fac.setCliente(pedidoDto.getCliente());
+					
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+				}
+				
+				try {
+					fac=facturaService.save(fac);
+					
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+				}
+				
 				List<PedidoDetalle> detalle=new ArrayList<PedidoDetalle>();
 				for(PedidoDetalleDTO detalleDto: pedidoDto.getDetalles()) {
 					PedidoDetalle temp=new PedidoDetalle();
 					temp.setId(detalleDto.getId());
 					temp.setCantidad(detalleDto.getCantidad());
-					
+					try {
+						Factura factura=new Factura();
+						factura.setId(fac.getId());
+						temp.setFactura(factura);
+					} catch (Exception e) {
+						System.out.println(e.getMessage());
+					}
 					try {
 						if(detalleDto.getInsumo()!=null) {
 							//Proceso de stock
@@ -794,6 +822,8 @@ public class PedidoService {
 					detalle.add(temp);
 				}
 				pedido.setDetalles(detalle);
+				
+				
 			}else if(estado.equals("demorado")) {
 				pedido.setEstado(estado);
 				String sDate1=pedido.getHoraEstimadaFin();

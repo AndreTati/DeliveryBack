@@ -123,6 +123,55 @@ public class EmpleadoService {
 		return eDto;
 	}
 	
+	public EmpleadoDTO getOneByEmail(String email) {
+		Optional<Empleado> opt=empleadoRepository.buscarPorEmail(email);
+		EmpleadoDTO eDto=new EmpleadoDTO();
+		
+		try {
+			Empleado emp=opt.get();
+			eDto.setId(emp.getId());
+			eDto.setNombre(emp.getNombre());
+			eDto.setApellido(emp.getApellido());
+			eDto.setDni(emp.getDni());
+			eDto.setEmail(emp.getEmail());
+			eDto.setFechaAlta(emp.getFechaAlta());
+			eDto.setFechaNac(emp.getFechaNac());
+			eDto.setPass(emp.getPass());
+			
+			try {
+				RolDTO rol=new RolDTO();
+				rol.setId(emp.getRol().getId());
+				rol.setNombre(emp.getRol().getNombre());
+				eDto.setRol(rol);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+			
+			try {
+				DomicilioDTO domicilio=new DomicilioDTO();
+				domicilio.setId(emp.getDomicilio().getId());
+				domicilio.setCalle(emp.getDomicilio().getCalle());
+				domicilio.setNro(emp.getDomicilio().getNro());
+				eDto.setDomicilio(domicilio);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+			
+			try {
+				ImagenDTO img=new ImagenDTO();
+				img.setId(emp.getImg().getId());
+				img.setUrl(emp.getImg().getUrl());
+				eDto.setImg(img);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+			
+		} catch (Exception e) {
+			System.out.println("No se encuentra el id");
+		}
+		return eDto;
+	}
+	
 	public EmpleadoDTO save(EmpleadoDTO eDto) {
 		Empleado emp=new Empleado();
 		

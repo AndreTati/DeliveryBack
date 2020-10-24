@@ -25,9 +25,9 @@ public class Factura {
 	@Column(name="id_factura")
 	private int id;
 	@Column(name="fecha_factura")
-	private Date fecha;
+	private String fecha;
 	@Column(name="montoDescuento_factura")
-	private int montoDescuento;
+	private double montoDescuento;
 	@Column(name="total_factura")
 	private double total;
 	@Column(name="nro_factura")
@@ -58,19 +58,19 @@ public class Factura {
 		this.id = id;
 	}
 
-	public Date getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 
-	public int getMontoDescuento() {
+	public double getMontoDescuento() {
 		return montoDescuento;
 	}
 
-	public void setMontoDescuento(int montoDescuento) {
+	public void setMontoDescuento(double montoDescuento) {
 		this.montoDescuento = montoDescuento;
 	}
 

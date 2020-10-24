@@ -1,5 +1,7 @@
 package com.example.demo.repositories;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -14,4 +16,8 @@ public interface FacturaRepository extends JpaRepository<Factura, Integer>{
 	@Transactional
 	@Query("UPDATE Factura SET eliminado_factura=true WHERE id=?1")
 	public int deleteById(int id);
+	
+	
+	@Query(value="SELECT * FROM Factura WHERE fk_id_Pedido=?1", nativeQuery  =true)
+	public Optional<Factura> getOneByIdPedido(int idPedido);
 }

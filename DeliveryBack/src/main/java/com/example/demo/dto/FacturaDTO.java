@@ -8,8 +8,8 @@ import java.util.List;
 public class FacturaDTO implements Serializable{
 
 	private int id;
-	private Date fecha;
-	private int montoDescuento;
+	private String fecha;
+	private double montoDescuento;
 	private double total;
 	private int nro;
 	private String tipoPago;
@@ -30,19 +30,19 @@ public class FacturaDTO implements Serializable{
 		this.id = id;
 	}
 
-	public Date getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 
-	public int getMontoDescuento() {
+	public double getMontoDescuento() {
 		return montoDescuento;
 	}
 
-	public void setMontoDescuento(int montoDescuento) {
+	public void setMontoDescuento(double montoDescuento) {
 		this.montoDescuento = montoDescuento;
 	}
 

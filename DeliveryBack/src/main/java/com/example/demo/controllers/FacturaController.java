@@ -41,6 +41,12 @@ public class FacturaController {
 		return ResponseEntity.status(200).body(facturaService.getOne(id)).getBody();
 	}
 	
+	@GetMapping("/byPedido/{idPedido}")
+	@CrossOrigin("*")
+	public FacturaDTO getOneByPedido(@PathVariable int idPedido) {
+		return ResponseEntity.status(200).body(facturaService.getOneByPedido(idPedido)).getBody();
+	}
+	
 	@PostMapping("/")
 	@CrossOrigin("*")
 	public ResponseEntity save(@RequestBody FacturaDTO facturaDto) {
