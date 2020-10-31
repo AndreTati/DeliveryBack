@@ -20,4 +20,7 @@ public interface EmpleadoRepository extends JpaRepository<Empleado, Integer>{
 	
 	@Query(value = "SELECT * FROM Persona WHERE email_persona =?1", nativeQuery  =true)
 	public Optional<Empleado> buscarPorEmail(String email);
+	
+	@Query(value = "SELECT * FROM Persona WHERE email_persona =?1 AND pass_persona=?1", nativeQuery  =true)
+	public Optional<Empleado> loguin(String email, String pass);
 }

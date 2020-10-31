@@ -18,12 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.PaisDTO;
 import com.example.demo.dto.RolDTO;
+import com.example.demo.exceptions.StatusException;
 import com.example.demo.services.RolService;
 
 @RestController
 @CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE,
 		RequestMethod.PUT })
-@RequestMapping(path = "api/v1/delivery/rol")
+@RequestMapping(path = "api/v1/rol")
 public class RolController {
 	 private RolService service;
 
@@ -73,11 +74,15 @@ public class RolController {
 
 		boolean result = service.delete(id);
 
-		if (result) {
-			return ResponseEntity.status(204).body("");
-		} else {
-			return ResponseEntity.status(204).body("No ha sido borrado");
-		}
+		try {
+			if (result) {
+				return ResponseEntity.status(204).body("{ \"Succesful\": \"Correctly removed.\" }");
+			} else {
+				throw new StatusException("Bad request. Please verify the id", 400);
+			}
 
+		}catch(StatusException e) {
+			return e.getResponseStatus();
+		}
 	}
 }

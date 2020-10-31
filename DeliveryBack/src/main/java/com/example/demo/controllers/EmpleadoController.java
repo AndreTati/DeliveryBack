@@ -45,6 +45,12 @@ public class EmpleadoController {
 		return ResponseEntity.status(200).body(empleadoService.getOneByEmail(email)).getBody();
 	}
 	
+	@GetMapping("loguin/{email}/{pass}")
+	@CrossOrigin("*")
+	public EmpleadoDTO loguin(@PathVariable("email") String email, @PathVariable("pass") String pass) {
+		return ResponseEntity.status(200).body(empleadoService.loguin(email, pass)).getBody();
+	}
+	
 	@PostMapping("/")
 	@CrossOrigin("*")
 	public ResponseEntity save(@RequestBody EmpleadoDTO dto) {

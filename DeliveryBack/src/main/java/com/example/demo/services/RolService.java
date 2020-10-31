@@ -24,6 +24,7 @@ public class RolService {
 			
 			for (Rol cg : repository.findAll()) {
 				RolDTO temp = new RolDTO();
+				temp.setId(cg.getId());
 				temp.setNombre(cg.getNombre());
 				temp.setEliminado(cg.isEliminado());
 				lista.add(temp);
