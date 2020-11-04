@@ -35,7 +35,7 @@ public class ArticuloManufacturado {
 	@OneToOne
 	@JoinColumn(name="fk_id_categoriaGeneral")
 	private CategoriaGeneral categoria;
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="fk_id_imagen")
 	private Imagen img;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "manufacturado")

@@ -25,7 +25,7 @@ import com.example.demo.repositories.ArticuloManufacturadoRepository;
 public class ArticuloManufacturadoService {
 
 	private ArticuloManufacturadoRepository manufacturadoRepository;
-
+	
 	public ArticuloManufacturadoService(ArticuloManufacturadoRepository manufacturadoRepository) {
 		this.manufacturadoRepository = manufacturadoRepository;
 	}
@@ -64,6 +64,8 @@ public class ArticuloManufacturadoService {
 					insumo.setPrecioVta(manufacturadoDetalle.getInsumo().getPrecioVta());
 					insumo.setEsInsumo(manufacturadoDetalle.getInsumo().isEsInsumo());
 					insumo.setEliminado(manufacturadoDetalle.getInsumo().isEsInsumo());
+					
+					
 					try {
 						CategoriaInsumoDTO cat= new CategoriaInsumoDTO();
 						cat.setId(manufacturadoDetalle.getInsumo().getCategoria().getId());
@@ -85,9 +87,11 @@ public class ArticuloManufacturadoService {
 						System.out.println(e.getMessage());
 					}
 					
+					ArticuloManufacturadoDTO manufacturado2=new ArticuloManufacturadoDTO();
+					manufacturado2.setId(manufacturadoDetalle.getManufacturado().getId());
 					
 					manufacturadoDetalleDto.setInsumo(insumo);
-					
+					manufacturadoDetalleDto.setManufacturado(manufacturado2);
 					detalles.add(manufacturadoDetalleDto);
 					
 				}
@@ -230,7 +234,15 @@ public class ArticuloManufacturadoService {
 			System.out.println(e.getMessage());
 		}
 		try {
+			CategoriaGeneral categoria=new CategoriaGeneral();
+			categoria.setId(manufacturadoDto.getCategoriaGral().getId());
+			manufacturado.setCategoria(categoria);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		try {
 			Imagen img=new Imagen();
+			img.setId(manufacturadoDto.getImg().getId());
 			img.setUrl(manufacturadoDto.getImg().getUrl());
 			manufacturado.setImg(img);
 		}catch(Exception e) {
@@ -256,13 +268,19 @@ public class ArticuloManufacturadoService {
 				List<ArticuloManufacturadoDetalle> detalle=new ArrayList<ArticuloManufacturadoDetalle>();
 				for(ArticuloManufacturadoDetalleDTO detalleDto : manufacturadoDto.getDetalles()) {
 					ArticuloManufacturadoDetalle dt=new ArticuloManufacturadoDetalle();
-					dt.setId(detalleDto.getId());
+					if(detalleDto.getId()!=0) {
+						dt.setId(detalleDto.getId());
+					}
+					
 					dt.setCantidad(detalleDto.getCantidad());
 					
 					ArticuloInsumo insumo=new ArticuloInsumo();
 					insumo.setId(detalleDto.getInsumo().getId());
-					
+					ArticuloManufacturado manufacturado2=new ArticuloManufacturado();
+					manufacturado2.setId(detalleDto.getManufacturado().getId());
 					dt.setInsumo(insumo);
+					dt.setManufacturado(manufacturado2);
+					detalle.add(dt);
 				}
 				manufacturado.setDetalles(detalle);
 				
@@ -279,6 +297,10 @@ public class ArticuloManufacturadoService {
 			}
 			try {
 				Imagen img=new Imagen();
+				if(manufacturadoDto.getImg().getId()!=0) {
+					img.setId(manufacturadoDto.getImg().getId());
+				}
+				
 				img.setUrl(manufacturadoDto.getImg().getUrl());
 				manufacturado.setImg(img);
 			}catch(Exception e) {
@@ -288,7 +310,7 @@ public class ArticuloManufacturadoService {
 			manufacturadoRepository.save(manufacturado);
 			manufacturadoDto.setId(manufacturado.getId());
 		}catch(Exception e) {
-			System.out.println("Bad Request");
+			System.out.println(e.getMessage());
 			manufacturadoDto.setId(0);
 		}
 		return manufacturadoDto;

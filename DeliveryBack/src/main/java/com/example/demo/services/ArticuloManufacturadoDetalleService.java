@@ -137,9 +137,11 @@ public class ArticuloManufacturadoDetalleService {
 			System.out.println(e.getMessage());
 		}
 		try {
-			ArticuloManufacturado manufacturado=new ArticuloManufacturado();
-			manufacturado.setId(detalleDto.getManufacturado().getId());
-			det.setManufacturado(manufacturado);
+			if(detalleDto.getManufacturado().getId()!=0) {
+				ArticuloManufacturado manufacturado=new ArticuloManufacturado();
+				manufacturado.setId(detalleDto.getManufacturado().getId());
+				det.setManufacturado(manufacturado);
+			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
