@@ -274,6 +274,7 @@ public class PedidoService {
 					PedidoDetalleDTO detalleDto=new PedidoDetalleDTO();
 					detalleDto.setId(detalle.getId());
 					detalleDto.setCantidad(detalle.getCantidad());
+					detalleDto.setSubtotal(detalle.getSubtotal());
 					
 					if(detalle.getInsumo()!=null) {
 						ArticuloInsumoDTO insumo=new ArticuloInsumoDTO();

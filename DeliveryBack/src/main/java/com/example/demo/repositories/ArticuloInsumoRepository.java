@@ -19,6 +19,6 @@ public interface ArticuloInsumoRepository extends JpaRepository<ArticuloInsumo, 
 	@Query("UPDATE ArticuloInsumo SET eliminado_articuloInsumo=true WHERE id=?1")
 	public int deleteById(int id);
 	
-	@Query(value = "SELECT * FROM articuloinsumo WHERE esInsumo_articuloInsumo=?1", nativeQuery = true)
+	@Query(value = "SELECT * FROM articuloinsumo WHERE esInsumo_articuloInsumo=?1 AND eliminado_articuloInsumo=0", nativeQuery = true)
 	public List<ArticuloInsumo> getAllNoInsumos(boolean esInsumo);
 }
