@@ -46,10 +46,11 @@ public class PedidoService {
 	
 
 	public PedidoService(PedidoRepository pedidoRepositoy, ArticuloInsumoRepository insumoRepository,
-			ArticuloManufacturadoRepository manufacturadoRepository) {
+			ArticuloManufacturadoRepository manufacturadoRepository, FacturaService facturaService) {
 		this.pedidoRepositoy = pedidoRepositoy;
 		this.insumoRepository = insumoRepository;
 		this.manufacturadoRepository = manufacturadoRepository;
+		this.facturaService=facturaService;
 	}
 
 	public List<PedidoDTO> getAll(){
@@ -127,6 +128,9 @@ public class PedidoService {
 					PedidoDetalleDTO detalleDto=new PedidoDetalleDTO();
 					detalleDto.setId(detalle.getId());
 					detalleDto.setCantidad(detalle.getCantidad());
+					PedidoDTO pedidoDto = new PedidoDTO();
+					pedidoDto.setId(detalle.getPedido().getId());
+					detalleDto.setPedido(pedidoDto);
 					
 					if(detalle.getInsumo()!=null) {
 						ArticuloInsumoDTO insumo=new ArticuloInsumoDTO();
@@ -760,7 +764,7 @@ public class PedidoService {
 		try {
 			pedido=opt.get();
 			
-			if(estado.equals("terminado")) {
+			if(estado.equals("Terminado")) {
 				pedido.setEstado(estado);
 				FacturaDTO fac=new FacturaDTO();
 				fac.setPedido(pedidoDto);
@@ -786,6 +790,9 @@ public class PedidoService {
 					PedidoDetalle temp=new PedidoDetalle();
 					temp.setId(detalleDto.getId());
 					temp.setCantidad(detalleDto.getCantidad());
+					Pedido pedido2=new Pedido();
+					pedido2.setId(detalleDto.getPedido().getId());
+					temp.setPedido(pedido2);
 					try {
 						Factura factura=new Factura();
 						factura.setId(fac.getId());
@@ -825,7 +832,7 @@ public class PedidoService {
 				pedido.setDetalles(detalle);
 				
 				
-			}else if(estado.equals("demorado")) {
+			}else if(estado.equals("Demorado")) {
 				pedido.setEstado(estado);
 				String sDate1=pedido.getHoraEstimadaFin();
 				Date d1=new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(sDate1);
@@ -882,6 +889,7 @@ public class PedidoService {
 			try {
 				for(PedidoDetalleDTO detalleDto: pedidoDto.getDetalles()) {
 					PedidoDetalle temp=new PedidoDetalle();
+					temp.setId(detalleDto.getId());
 					temp.setCantidad(detalleDto.getCantidad());
 					temp.setPedido(pedido);
 					try {

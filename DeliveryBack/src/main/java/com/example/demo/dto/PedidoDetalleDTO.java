@@ -14,8 +14,8 @@ public class PedidoDetalleDTO implements Serializable{
 	private ArticuloInsumoDTO insumo;
 	private ArticuloManufacturadoDTO manufacturado;
 	
-	private Pedido pedido;
-	private Factura factura;
+	private PedidoDTO pedido;
+	private FacturaDTO factura;
 	
 	public PedidoDetalleDTO() {}
 
@@ -59,19 +59,19 @@ public class PedidoDetalleDTO implements Serializable{
 		this.manufacturado = manufacturado;
 	}
 
-	public Pedido getPedido() {
+	public PedidoDTO getPedido() {
 		return pedido;
 	}
 
-	public void setPedido(Pedido pedido) {
+	public void setPedido(PedidoDTO pedido) {
 		this.pedido = pedido;
 	}
 
-	public Factura getFactura() {
+	public FacturaDTO getFactura() {
 		return factura;
 	}
 
-	public void setFactura(Factura factura) {
+	public void setFactura(FacturaDTO factura) {
 		this.factura = factura;
 	}
 	

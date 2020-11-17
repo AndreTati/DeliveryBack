@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.ConfiguracionDTO;
+import com.example.demo.dto.FacturaDTO;
 import com.example.demo.exceptions.StatusException;
 import com.example.demo.services.ConfiguracionService;
 
@@ -26,6 +27,20 @@ public class ConfiguracionController {
 	public ConfiguracionController(ConfiguracionService configuracionService) {
 		this.configuracionService = configuracionService;
 	}
+	
+	@PostMapping("/sendMail")
+	@CrossOrigin("*")
+	public ResponseEntity sendMail(@RequestBody FacturaDTO factura) {
+		try {
+			configuracionService.sendMail(factura);
+			return ResponseEntity.status(200).body("");
+		}catch(Exception e) {
+			
+			return ResponseEntity.status(404).body(e.getMessage());
+		}
+		
+	}
+	
 	@GetMapping("/")
 	@CrossOrigin("*")
 	public ConfiguracionDTO getOne() {

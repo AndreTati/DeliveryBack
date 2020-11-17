@@ -16,6 +16,8 @@ import com.example.demo.dto.FacturaDTO;
 import com.example.demo.dto.PedidoDTO;
 import com.example.demo.dto.PedidoDetalleDTO;
 import com.example.demo.dto.UnidadDeMedidaDTO;
+import com.example.demo.entities.ArticuloInsumo;
+import com.example.demo.entities.ArticuloManufacturado;
 import com.example.demo.entities.ArticuloManufacturadoDetalle;
 import com.example.demo.entities.Cliente;
 import com.example.demo.entities.Domicilio;
@@ -140,7 +142,7 @@ public class FacturaService {
 			
 			try {
 				PedidoDTO ped = new PedidoDTO();
-				ped.setId(factDto.getPedido().getId());
+				ped.setId(fac.getPedido().getId());
 				try {
 					DomicilioDTO dom=new DomicilioDTO();
 					dom.setId(fac.getPedido().getDomicilioCliente().getId());
@@ -162,6 +164,12 @@ public class FacturaService {
 					detalleDto.setId(detalle.getId());
 					detalleDto.setCantidad(detalle.getCantidad());
 					detalleDto.setSubtotal(detalle.getSubtotal());
+					PedidoDTO pedido=new PedidoDTO();
+					pedido.setId(detalle.getPedido().getId());
+					detalleDto.setPedido(pedido);
+					FacturaDTO factura=new FacturaDTO();
+					factura.setId(detalle.getFactura().getId());
+					detalleDto.setFactura(factura);
 					if(detalle.getInsumo()!=null) {
 						ArticuloInsumoDTO insumo=new ArticuloInsumoDTO();
 						insumo.setId(detalle.getInsumo().getId());
@@ -198,6 +206,7 @@ public class FacturaService {
 							ArticuloManufacturadoDetalleDTO temp=new ArticuloManufacturadoDetalleDTO();
 							temp.setId(det.getId());
 							temp.setCantidad(det.getCantidad());
+							
 							try {
 								ArticuloInsumoDTO insumoDetalle =new ArticuloInsumoDTO();
 								insumoDetalle.setId(det.getInsumo().getId());
@@ -272,6 +281,9 @@ public class FacturaService {
 		factura.setTotal(facturaDto.getTotal());
 		factura.setNro(facturaDto.getNro());
 		factura.setNroTarjeta(facturaDto.getNroTarjeta());
+		Pedido pedido=new Pedido();
+		pedido.setId(facturaDto.getPedido().getId());
+		factura.setPedido(pedido);
 		
 		try {
 			List<PedidoDetalle> detalle=new ArrayList<PedidoDetalle>();
@@ -310,11 +322,35 @@ public class FacturaService {
 			factura.setMontoDescuento(facturaDto.getMontoDescuento());
 			factura.setNro(facturaDto.getNro());
 			factura.setNroTarjeta(facturaDto.getNroTarjeta());
+			factura.setTotal(facturaDto.getTotal());
+			Pedido pedido=new Pedido();
+			pedido.setId(facturaDto.getPedido().getId());
+			factura.setPedido(pedido);
 			try {
 				List<PedidoDetalle> detalle=new ArrayList<PedidoDetalle>();
 				for(PedidoDetalleDTO detalleDto : facturaDto.getDetalles()) {
 					PedidoDetalle dt=new PedidoDetalle();
-					dt.setId(detalleDto.getId());
+					if(detalleDto.getId()!=0) {
+						dt.setId(detalleDto.getId());
+					}
+					dt.setCantidad(detalleDto.getCantidad());
+					dt.setSubtotal(detalleDto.getSubtotal());
+					Pedido pedido2= new Pedido();
+					pedido2.setId(detalleDto.getPedido().getId());
+					dt.setPedido(pedido2);
+					Factura factura2= new Factura();
+					factura2.setId(detalleDto.getFactura().getId());
+					dt.setFactura(factura2);
+					if(detalleDto.getInsumo()!=null) {
+						ArticuloInsumo insumo=new ArticuloInsumo();
+						insumo.setId(detalleDto.getInsumo().getId());
+						dt.setInsumo(insumo);
+					}
+					if(detalleDto.getManufacturado()!=null) {
+						ArticuloManufacturado manufacturado=new ArticuloManufacturado();
+						manufacturado.setId(detalleDto.getManufacturado().getId());
+						dt.setManufacturado(manufacturado);
+					}
 					detalle.add(dt);
 				}
 				factura.setDetalles(detalle);
