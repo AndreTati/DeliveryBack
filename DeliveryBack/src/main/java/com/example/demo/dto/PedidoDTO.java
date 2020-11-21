@@ -16,6 +16,7 @@ public class PedidoDTO implements Serializable{
 	private double montoDescuento;
 	private double total;
 	private String estado;
+	private String formaPago;
 	
 	private List<PedidoDetalleDTO>detalles=new ArrayList<PedidoDetalleDTO>();
 	private ClienteDTO cliente;
@@ -117,6 +118,14 @@ public class PedidoDTO implements Serializable{
 
 	public void setDomicilioCliente(DomicilioDTO domicilioCliente) {
 		this.domicilioCliente = domicilioCliente;
+	}
+
+	public String getFormaPago() {
+		return formaPago;
+	}
+
+	public void setFormaPago(String formaPago) {
+		this.formaPago = formaPago;
 	}
 	
 	

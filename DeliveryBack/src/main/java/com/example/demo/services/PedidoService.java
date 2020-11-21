@@ -68,6 +68,7 @@ public class PedidoService {
 			pedDto.setTotal(pedido.getTotal());
 			pedDto.setEstado(pedido.getEstado());
 			pedDto.setNro(pedido.getNro());
+			pedDto.setFormaPago(pedido.getFormaPago());
 			
 			try {
 				ClienteDTO cli=new ClienteDTO();
@@ -219,6 +220,7 @@ public class PedidoService {
 			pedDto.setTotal(pedido.getTotal());
 			pedDto.setEstado(pedido.getEstado());
 			pedDto.setNro(pedido.getNro());
+			pedDto.setFormaPago(pedido.getFormaPago());
 			
 			try {
 				ClienteDTO cli=new ClienteDTO();
@@ -383,6 +385,7 @@ public class PedidoService {
 			pedDto.setTotal(pedido.getTotal());
 			pedDto.setEstado(pedido.getEstado());
 			pedDto.setNro(pedido.getNro());
+			pedDto.setFormaPago(pedido.getFormaPago());
 			
 			try {
 				ClienteDTO cli=new ClienteDTO();
@@ -545,6 +548,7 @@ public class PedidoService {
 			pedDto.setTotal(pedido.getTotal());
 			pedDto.setEstado(pedido.getEstado());
 			pedDto.setNro(pedido.getNro());
+			pedDto.setFormaPago(pedido.getFormaPago());
 			
 			try {
 				ClienteDTO cli=new ClienteDTO();
@@ -702,7 +706,8 @@ public class PedidoService {
 		pedido.setNro(pedidoDto.getNro());
 		pedido.setTipoEnvio(pedidoDto.getTipoEnvio());
 		pedido.setTotal(pedidoDto.getTotal());
-		pedido.setEstado("En cocina");
+		pedido.setEstado("Pendiente");
+		pedido.setFormaPago(pedidoDto.getFormaPago());
 		
 		try {
 			Cliente cli=new Cliente();
@@ -771,6 +776,7 @@ public class PedidoService {
 				fac.setFecha(pedidoDto.getFecha());
 				fac.setMontoDescuento(pedidoDto.getMontoDescuento());
 				fac.setTotal(pedido.getTotal());
+				fac.setTipoPago(pedidoDto.getFormaPago());
 				try {
 					fac.setCliente(pedidoDto.getCliente());
 					
@@ -869,6 +875,7 @@ public class PedidoService {
 			pedido.setTipoEnvio(pedidoDto.getTipoEnvio());
 			pedido.setEstado(pedidoDto.getEstado());
 			pedido.setTotal(pedidoDto.getTotal());
+			pedido.setFormaPago(pedidoDto.getFormaPago());
 			
 			try {
 				Cliente cli=new Cliente();

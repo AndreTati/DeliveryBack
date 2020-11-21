@@ -40,7 +40,8 @@ public class Pedido {
 	private double total;
 	@Column(name="estado_pedido")
 	private String estado;
-	
+	@Column(name="formaPago_pedido")
+	private String formaPago;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido")
 	private List<PedidoDetalle>detalles=new ArrayList<PedidoDetalle>();
@@ -148,6 +149,15 @@ public class Pedido {
 	public void setDomicilioCliente(Domicilio domicilioCliente) {
 		this.domicilioCliente = domicilioCliente;
 	}
+
+	public String getFormaPago() {
+		return formaPago;
+	}
+
+	public void setFormaPago(String formaPago) {
+		this.formaPago = formaPago;
+	}
+	
 	
 	
 }

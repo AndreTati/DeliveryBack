@@ -13,6 +13,7 @@ public class CarritoDTO implements Serializable{
 	private String tipoEnvio;
 	private double montoDescuento;
 	private double total;
+	private String formaPago;
 	
 	private List<CarritoDetalleDTO> detallesCarrito=new ArrayList<>();
 	private ClienteDTO cliente;
@@ -64,6 +65,12 @@ public class CarritoDTO implements Serializable{
 	}
 	public void setDomicilioCliente(DomicilioDTO domicilioCliente) {
 		this.domicilioCliente = domicilioCliente;
+	}
+	public String getFormaPago() {
+		return formaPago;
+	}
+	public void setFormaPago(String formaPago) {
+		this.formaPago = formaPago;
 	}
 	
 	

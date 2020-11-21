@@ -33,6 +33,8 @@ public class Carrito {
 	private double montoDescuento;
 	@Column(name="total_carrito")
 	private double total;
+	@Column(name="formaPago_carrito")
+	private String formaPago;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "carrito")
 	private List<CarritoDetalle> detallesCarrito=new ArrayList<>();
@@ -107,6 +109,14 @@ public class Carrito {
 
 	public void setDomicilioCliente(Domicilio domicilioCliente) {
 		this.domicilioCliente = domicilioCliente;
+	}
+
+	public String getFormaPago() {
+		return formaPago;
+	}
+
+	public void setFormaPago(String formaPago) {
+		this.formaPago = formaPago;
 	}
 	
 	

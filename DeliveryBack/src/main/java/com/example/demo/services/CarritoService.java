@@ -47,6 +47,7 @@ public class CarritoService {
 			carDto.setMontoDescuento(carrito.getMontoDescuento());
 			carDto.setTipoEnvio(carrito.getTipoEnvio());
 			carDto.setTotal(carrito.getTotal());
+			carDto.setFormaPago(carrito.getFormaPago());
 			
 			try {
 				ClienteDTO cli=new ClienteDTO();
@@ -189,6 +190,7 @@ public class CarritoService {
 			carDto.setMontoDescuento(carrito.getMontoDescuento());
 			carDto.setTipoEnvio(carrito.getTipoEnvio());
 			carDto.setTotal(carrito.getTotal());
+			carDto.setFormaPago(carrito.getFormaPago());
 			
 			try {
 				ClienteDTO cli=new ClienteDTO();
@@ -356,6 +358,7 @@ public class CarritoService {
 			carDto.setMontoDescuento(carrito.getMontoDescuento());
 			carDto.setTipoEnvio(carrito.getTipoEnvio());
 			carDto.setTotal(carrito.getTotal());
+			carDto.setFormaPago(carrito.getFormaPago());
 			
 			try {
 				ClienteDTO cli=new ClienteDTO();
@@ -519,6 +522,7 @@ public class CarritoService {
 		carrito.setMontoDescuento(carritoDto.getMontoDescuento());
 		carrito.setTipoEnvio(carritoDto.getTipoEnvio());
 		carrito.setTotal(carritoDto.getTotal());
+		carrito.setFormaPago(carritoDto.getFormaPago());
 		
 		try {
 			Cliente cli=new Cliente();
@@ -585,6 +589,7 @@ public class CarritoService {
 			carrito.setMontoDescuento(carritoDto.getMontoDescuento());
 			carrito.setTipoEnvio(carritoDto.getTipoEnvio());
 			carrito.setTotal(carritoDto.getTotal());
+			carrito.setFormaPago(carritoDto.getFormaPago());
 			
 			try {
 				Cliente cli=new Cliente();
