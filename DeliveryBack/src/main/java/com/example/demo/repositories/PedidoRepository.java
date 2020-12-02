@@ -18,9 +18,9 @@ public interface PedidoRepository extends JpaRepository<Pedido, Integer>{
 	@Query("UPDATE Pedido SET eliminado_pedido=true WHERE id=?1")
 	public int deleteById(int id);
 	
-	@Query(value = "SELECT * FROM Pedido WHERE fk_id_cliente =?1 AND estado_pedido!='Facturado'", nativeQuery  =true)
+	@Query(value = "SELECT * FROM Pedido WHERE fk_id_cliente =?1 AND (estado_pedido!='Facturado' AND estado_pedido!='Rechazado')", nativeQuery  =true)
 	public List<Pedido> getAllByClientePendientes(int idCliente);
 	
-	@Query(value = "SELECT * FROM Pedido WHERE fk_id_cliente =?1 AND estado_pedido='Facturado'", nativeQuery  =true)
+	@Query(value = "SELECT * FROM Pedido WHERE fk_id_cliente =?1 AND (estado_pedido='Facturado' OR estado_pedido='Rechazado')", nativeQuery  =true)
 	public List<Pedido> getAllByClienteHistorial(int idCliente);
 }

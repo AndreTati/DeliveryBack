@@ -24,17 +24,24 @@ import com.example.demo.entities.Domicilio;
 import com.example.demo.entities.Factura;
 import com.example.demo.entities.Pedido;
 import com.example.demo.entities.PedidoDetalle;
+import com.example.demo.repositories.ArticuloInsumoRepository;
+import com.example.demo.repositories.ArticuloManufacturadoRepository;
 import com.example.demo.repositories.FacturaRepository;
 
 @Service
 public class FacturaService {
 
 	private FacturaRepository facturaRepository;
+	private ArticuloInsumoRepository insumoRepository;
+	private ArticuloManufacturadoRepository manufacturadoRepository;
 
-	public FacturaService(FacturaRepository facturaRepository) {
+	public FacturaService(FacturaRepository facturaRepository, ArticuloInsumoRepository insumoRepository,
+			ArticuloManufacturadoRepository manufacturadoRepository) {
 		this.facturaRepository = facturaRepository;
+		this.insumoRepository = insumoRepository;
+		this.manufacturadoRepository = manufacturadoRepository;
 	}
-	
+
 	public List<FacturaDTO> getAll(){
 		List<FacturaDTO> result=new ArrayList<FacturaDTO>();
 		
@@ -143,6 +150,7 @@ public class FacturaService {
 			try {
 				PedidoDTO ped = new PedidoDTO();
 				ped.setId(fac.getPedido().getId());
+				ped.setTipoEnvio(fac.getPedido().getTipoEnvio());
 				try {
 					DomicilioDTO dom=new DomicilioDTO();
 					dom.setId(fac.getPedido().getDomicilioCliente().getId());
@@ -342,14 +350,36 @@ public class FacturaService {
 					factura2.setId(detalleDto.getFactura().getId());
 					dt.setFactura(factura2);
 					if(detalleDto.getInsumo()!=null) {
-						ArticuloInsumo insumo=new ArticuloInsumo();
-						insumo.setId(detalleDto.getInsumo().getId());
-						dt.setInsumo(insumo);
+						if(detalleDto.getId()!=0) {
+							ArticuloInsumo insumo=new ArticuloInsumo();
+							insumo.setId(detalleDto.getInsumo().getId());
+							dt.setInsumo(insumo);
+						}else {
+							//proceso de stock de detalles agregados a la factura
+							ArticuloInsumo insumo=insumoRepository.findById(detalleDto.getInsumo().getId()).get();
+							insumo.setStockActual((insumo.getStockActual())-(detalleDto.getCantidad()));
+							insumoRepository.save(insumo);
+							dt.setInsumo(insumo);
+						}
+						
 					}
 					if(detalleDto.getManufacturado()!=null) {
-						ArticuloManufacturado manufacturado=new ArticuloManufacturado();
-						manufacturado.setId(detalleDto.getManufacturado().getId());
-						dt.setManufacturado(manufacturado);
+						if(detalleDto.getId()!=0) {
+							ArticuloManufacturado manufacturado=new ArticuloManufacturado();
+							manufacturado.setId(detalleDto.getManufacturado().getId());
+							dt.setManufacturado(manufacturado);
+						}else {
+							//proceso de stock de detalles agregados a la factura
+							ArticuloManufacturado manufacturado=manufacturadoRepository.findById(detalleDto.getManufacturado().getId()).get();
+							for(ArticuloManufacturadoDetalle manufDetalle : manufacturado.getDetalles()) {
+								ArticuloInsumo ins=insumoRepository.findById(manufDetalle.getInsumo().getId()).get();
+								ins.setStockActual((ins.getStockActual())-((detalleDto.getCantidad())*(manufDetalle.getCantidad())));
+								insumoRepository.save(ins);
+							}
+							manufacturado.setId(detalleDto.getManufacturado().getId());
+							dt.setManufacturado(manufacturado);
+						}
+						
 					}
 					detalle.add(dt);
 				}

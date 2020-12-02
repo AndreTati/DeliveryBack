@@ -132,6 +132,13 @@ public class PedidoService {
 					PedidoDTO pedidoDto = new PedidoDTO();
 					pedidoDto.setId(detalle.getPedido().getId());
 					detalleDto.setPedido(pedidoDto);
+					detalleDto.setSubtotal(detalle.getSubtotal());
+					if(detalle.getFactura()!=null) {
+						FacturaDTO facDto=new FacturaDTO();
+						facDto.setId(detalle.getFactura().getId());
+						detalleDto.setFactura(facDto);
+					}
+					
 					
 					if(detalle.getInsumo()!=null) {
 						ArticuloInsumoDTO insumo=new ArticuloInsumoDTO();
@@ -446,6 +453,7 @@ public class PedidoService {
 					PedidoDetalleDTO detalleDto=new PedidoDetalleDTO();
 					detalleDto.setId(detalle.getId());
 					detalleDto.setCantidad(detalle.getCantidad());
+					detalleDto.setSubtotal(detalle.getSubtotal());
 					
 					if(detalle.getInsumo()!=null) {
 						ArticuloInsumoDTO insumo=new ArticuloInsumoDTO();
@@ -609,6 +617,7 @@ public class PedidoService {
 					PedidoDetalleDTO detalleDto=new PedidoDetalleDTO();
 					detalleDto.setId(detalle.getId());
 					detalleDto.setCantidad(detalle.getCantidad());
+					detalleDto.setSubtotal(detalle.getSubtotal());
 					
 					if(detalle.getInsumo()!=null) {
 						ArticuloInsumoDTO insumo=new ArticuloInsumoDTO();
@@ -700,7 +709,6 @@ public class PedidoService {
 		
 		Pedido pedido =new Pedido();
 		
-		pedido.setHoraEstimadaFin(pedidoDto.getHoraEstimadaFin());
 		pedido.setFecha(pedidoDto.getFecha());
 		pedido.setMontoDescuento(pedidoDto.getMontoDescuento());
 		pedido.setNro(pedidoDto.getNro());
@@ -708,6 +716,8 @@ public class PedidoService {
 		pedido.setTotal(pedidoDto.getTotal());
 		pedido.setEstado("Pendiente");
 		pedido.setFormaPago(pedidoDto.getFormaPago());
+
+		
 		
 		try {
 			Cliente cli=new Cliente();
@@ -725,6 +735,7 @@ public class PedidoService {
 		}
 		
 		try {
+			int tiempoPedido=0;
 			List<PedidoDetalle> detalle=new ArrayList<PedidoDetalle>();
 			for(PedidoDetalleDTO detalleDto: pedidoDto.getDetalles()) {
 				PedidoDetalle temp=new PedidoDetalle();
@@ -742,6 +753,7 @@ public class PedidoService {
 					if(detalleDto.getManufacturado()!=null) {
 						ArticuloManufacturado manufacturado=new ArticuloManufacturado();
 						manufacturado.setId(detalleDto.getManufacturado().getId());
+						tiempoPedido+=detalleDto.getManufacturado().getTiempoPreparacion();
 						for(ArticuloManufacturadoDetalle manufDetalle : manufacturado.getDetalles()) {
 							ArticuloInsumo ins=new ArticuloInsumo();
 							ins.setId(manufDetalle.getInsumo().getId());
@@ -755,6 +767,49 @@ public class PedidoService {
 				detalle.add(temp);
 			}
 			pedido.setDetalles(detalle);
+			try {
+				String sDate1=pedido.getFecha();
+				Date d1=new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(sDate1);
+				int tiempoEnCocina=0;
+				List<PedidoDTO> pedidos=this.getAll();
+				for(PedidoDTO pedDto:pedidos) {
+					if(pedDto.getEstado().equals("En cocina")) {
+						for(PedidoDetalleDTO detDto:pedDto.getDetalles()) {
+							if(detDto.getManufacturado()!=null) {
+								tiempoEnCocina+=detDto.getManufacturado().getTiempoPreparacion();
+							}
+						}
+					}
+				}
+				Calendar calendar=Calendar.getInstance();
+				calendar.setTime(d1);
+				int horaEstimada=0;
+				if(pedidoDto.getTipoEnvio().equals("Delivery")) {
+					horaEstimada=tiempoPedido+tiempoEnCocina+10;
+				}else {
+					horaEstimada=tiempoPedido+tiempoEnCocina;
+				}
+				if(horaEstimada>60) {
+					horaEstimada=horaEstimada*60;
+					int hora=horaEstimada/3600;
+					int minuto=(horaEstimada-(hora*3600))/60;
+					int segundos=horaEstimada-(hora*3600+minuto*60);
+					calendar.add(Calendar.MINUTE, (int)minuto);
+					calendar.add(Calendar.SECOND, segundos);
+					calendar.add(Calendar.HOUR, hora);
+				}else {
+					calendar.add(Calendar.MINUTE, horaEstimada);
+				}
+				
+				Date fechaSalida=calendar.getTime();
+				
+				Format f=new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+				String strD=f.format(fechaSalida);
+				
+				pedido.setHoraEstimadaFin(strD);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -796,6 +851,7 @@ public class PedidoService {
 					PedidoDetalle temp=new PedidoDetalle();
 					temp.setId(detalleDto.getId());
 					temp.setCantidad(detalleDto.getCantidad());
+					temp.setSubtotal(detalleDto.getSubtotal());
 					Pedido pedido2=new Pedido();
 					pedido2.setId(detalleDto.getPedido().getId());
 					temp.setPedido(pedido2);
@@ -833,6 +889,7 @@ public class PedidoService {
 					} catch (Exception e) {
 						System.out.println(e.getMessage());
 					}
+					
 					detalle.add(temp);
 				}
 				pedido.setDetalles(detalle);
@@ -899,6 +956,10 @@ public class PedidoService {
 					temp.setId(detalleDto.getId());
 					temp.setCantidad(detalleDto.getCantidad());
 					temp.setPedido(pedido);
+					temp.setSubtotal(detalleDto.getSubtotal());
+					Factura factura= new Factura();
+					factura.setId(detalleDto.getFactura().getId());
+					temp.setFactura(factura);
 					try {
 						if(detalleDto.getInsumo()!=null) {
 							ArticuloInsumo insumo=new ArticuloInsumo();
