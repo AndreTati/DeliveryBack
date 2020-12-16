@@ -23,4 +23,7 @@ public interface PedidoRepository extends JpaRepository<Pedido, Integer>{
 	
 	@Query(value = "SELECT * FROM Pedido WHERE fk_id_cliente =?1 AND (estado_pedido='Facturado' OR estado_pedido='Rechazado')", nativeQuery  =true)
 	public List<Pedido> getAllByClienteHistorial(int idCliente);
+	
+	@Query(value = "SELECT * FROM Pedido WHERE fk_id_cliente =?1 AND (estado_pedido='Facturado' OR estado_pedido='Rechazado') ORDER BY id_pedido DESC", nativeQuery  =true)
+	public List<Pedido> getAllByClienteHistorialDescendente(int idCliente);
 }

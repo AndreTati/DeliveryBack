@@ -52,6 +52,12 @@ public class PedidoController {
 		return ResponseEntity.status(200).body(pedidoService.getAllByClienteHistorial(idCliente)).getBody();
 	}
 	
+	@GetMapping("/byClienteHistorialDesc/{idCliente}")
+	@CrossOrigin("*")
+	public List<PedidoDTO> getAllByClienteHistorialDescendente(@PathVariable int idCliente) {
+		return ResponseEntity.status(200).body(pedidoService.getAllByClienteHistorialDescendente(idCliente)).getBody();
+	}
+	
 	@PostMapping("/")
 	@CrossOrigin("*")
 	public ResponseEntity save(@RequestBody PedidoDTO pedidoDto) {

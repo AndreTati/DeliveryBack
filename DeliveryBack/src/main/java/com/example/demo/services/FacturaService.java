@@ -107,6 +107,84 @@ public class FacturaService {
 					detalleDto.setId(det.getId());
 					detalleDto.setCantidad(det.getCantidad());
 					detalleDto.setSubtotal(det.getSubtotal());
+					
+					if(det.getInsumo()!=null) {
+						ArticuloInsumoDTO insumo=new ArticuloInsumoDTO();
+						insumo.setId(det.getInsumo().getId());
+						insumo.setNombre(det.getInsumo().getNombre());
+						insumo.setDescripcion(det.getInsumo().getDescripcion());
+						insumo.setEsInsumo(det.getInsumo().isEsInsumo());
+						insumo.setPrecioCompra(det.getInsumo().getPrecioCompra());
+						insumo.setPrecioVta(det.getInsumo().getPrecioVta());
+						insumo.setStockActual(det.getInsumo().getStockActual());
+						insumo.setStockMax(det.getInsumo().getStockMax());
+						insumo.setStockMin(det.getInsumo().getStockMin());
+						try {
+							UnidadDeMedidaDTO uniMed=new UnidadDeMedidaDTO();
+							uniMed.setId(det.getInsumo().getUnidadMed().getId());
+							uniMed.setNombre(det.getInsumo().getUnidadMed().getNombre());
+							uniMed.setAbreviatura(det.getInsumo().getUnidadMed().getAbreviatura());
+							uniMed.setEliminado(det.getInsumo().getUnidadMed().isEliminado());
+							insumo.setUnidadDeMed(uniMed);
+						} catch (Exception e) {
+							System.out.println(e.getMessage());
+						}
+						detalleDto.setInsumo(insumo);
+					}
+					
+					if(det.getManufacturado()!=null) {
+						ArticuloManufacturadoDTO manufacturado=new ArticuloManufacturadoDTO();
+						manufacturado.setId(det.getManufacturado().getId());
+						manufacturado.setNombre(det.getManufacturado().getNombre());
+						manufacturado.setPrecio(det.getManufacturado().getPrecio());
+						manufacturado.setTiempoPreparacion(det.getManufacturado().getTiempoPreparacion());
+						
+						List<ArticuloManufacturadoDetalleDTO> detallesManuf=new ArrayList<ArticuloManufacturadoDetalleDTO>();
+						for(ArticuloManufacturadoDetalle dt: det.getManufacturado().getDetalles()) {
+							ArticuloManufacturadoDetalleDTO temp=new ArticuloManufacturadoDetalleDTO();
+							temp.setId(dt.getId());
+							temp.setCantidad(dt.getCantidad());
+							
+							try {
+								ArticuloInsumoDTO insumoDetalle =new ArticuloInsumoDTO();
+								insumoDetalle.setId(dt.getInsumo().getId());
+								insumoDetalle.setNombre(dt.getInsumo().getNombre());
+								insumoDetalle.setDescripcion(dt.getInsumo().getDescripcion());
+								insumoDetalle.setPrecioCompra(dt.getInsumo().getPrecioCompra());
+								insumoDetalle.setPrecioVta(dt.getInsumo().getPrecioVta());
+								insumoDetalle.setStockActual(dt.getInsumo().getStockActual());
+								insumoDetalle.setStockMax(dt.getInsumo().getStockMax());
+								insumoDetalle.setStockMin(dt.getInsumo().getStockMin());
+								insumoDetalle.setEsInsumo(dt.getInsumo().isEsInsumo());
+								try {
+									CategoriaInsumoDTO categoria=new CategoriaInsumoDTO();
+									categoria.setId(dt.getInsumo().getCategoria().getId());
+									categoria.setDenominacion(dt.getInsumo().getCategoria().getDenominacion());
+									insumoDetalle.setCategoria(categoria);
+								} catch (Exception e) {
+									System.out.println(e.getMessage());
+								}
+								try {
+									UnidadDeMedidaDTO unidad=new UnidadDeMedidaDTO();
+									unidad.setId(dt.getInsumo().getUnidadMed().getId());
+									unidad.setNombre(dt.getInsumo().getUnidadMed().getNombre());
+									unidad.setAbreviatura(dt.getInsumo().getUnidadMed().getAbreviatura());
+									insumoDetalle.setUnidadDeMed(unidad);
+								} catch (Exception e) {
+									System.out.println(e.getMessage());
+								}
+								temp.setInsumo(insumoDetalle);
+							} catch (Exception e) {
+								System.out.println(e.getMessage());
+							}
+							
+							detallesManuf.add(temp);
+						}
+						manufacturado.setDetalles(detallesManuf);
+						
+						detalleDto.setManufacturado(manufacturado);
+					}
+					
 					detalle.add(detalleDto);
 				}
 				factDto.setDetalles(detalle);
@@ -353,6 +431,18 @@ public class FacturaService {
 						if(detalleDto.getId()!=0) {
 							ArticuloInsumo insumo=new ArticuloInsumo();
 							insumo.setId(detalleDto.getInsumo().getId());
+							FacturaDTO facturaConsulta=this.getOne(facturaDto.getId());
+							List<PedidoDetalle> detalleConsulta=new ArrayList<PedidoDetalle>();
+							for(PedidoDetalleDTO detalleDtoConsulta:facturaConsulta.getDetalles()) {
+								if(detalleDtoConsulta.getInsumo()!=null) {
+									if(detalleDtoConsulta.getInsumo().getId()==detalleDto.getInsumo().getId() && detalleDtoConsulta.getCantidad()<detalleDto.getCantidad()) {
+										int cantidadRestante=detalleDto.getCantidad()-detalleDtoConsulta.getCantidad();
+										ArticuloInsumo insumoAgregado=insumoRepository.findById(detalleDto.getInsumo().getId()).get();
+										insumoAgregado.setStockActual((insumoAgregado.getStockActual())-(cantidadRestante));
+										insumoRepository.save(insumoAgregado);
+									}
+								}
+							}
 							dt.setInsumo(insumo);
 						}else {
 							//proceso de stock de detalles agregados a la factura
